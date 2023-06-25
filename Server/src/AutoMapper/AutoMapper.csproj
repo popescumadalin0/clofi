@@ -4,4 +4,9 @@
 		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\DatabaseLayout\DatabaseLayout.csproj" />
+	  <ProjectReference Include="..\Models\Models.csproj" />
+	</ItemGroup>
+
 </Project>
