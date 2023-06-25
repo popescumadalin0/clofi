@@ -9,15 +9,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E199543E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "src\Server\Server.csproj", "{C93F58AC-66AA-4194-A9FE-D56EF939528F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "src\Services\Services.csproj", "{E7C87EBC-D92A-473B-A57C-CD8765A52EB3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{E7C87EBC-D92A-473B-A57C-CD8765A52EB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseLayout", "src\DatabaseLayout\DatabaseLayout.csproj", "{344DBF47-C1CB-4273-90BC-672B26773AEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseLayout", "DatabaseLayout\DatabaseLayout.csproj", "{344DBF47-C1CB-4273-90BC-672B26773AEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDK", "src\SDK\SDK.csproj", "{D26F68CF-D442-4B32-8E87-89F0CC362B46}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDK", "SDK\SDK.csproj", "{D26F68CF-D442-4B32-8E87-89F0CC362B46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "src\Models\Models.csproj", "{438BA567-78CD-475F-8007-7F15172A9820}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{438BA567-78CD-475F-8007-7F15172A9820}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoMapper", "src\AutoMapper\AutoMapper.csproj", "{0DB14C53-372B-459B-8089-4CC8E02319B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoMapper", "AutoMapper\AutoMapper.csproj", "{0DB14C53-372B-459B-8089-4CC8E02319B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
