@@ -5,6 +5,10 @@
 		<LangVersion>10</LangVersion>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<Folder Include="Models\" />
+	</ItemGroup>
+
 
 	<PropertyGroup>
 		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
@@ -13,11 +17,6 @@
 		<Version>0.0.1</Version>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
-
-
-	<ItemGroup>
-		<Folder Include="Models\" />
-	</ItemGroup>
 	<Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
 		<ItemGroup>
 			<!-- Filter out unnecessary files -->
