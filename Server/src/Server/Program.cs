@@ -1,4 +1,4 @@
-using DatabaseLayout.Data;
+using DatabaseLayout.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
