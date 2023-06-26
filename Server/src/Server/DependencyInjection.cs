@@ -1,4 +1,4 @@
-﻿using System.Runtime.InteropServices;
+﻿using DatabaseLayout.Context;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Server;
@@ -12,6 +12,8 @@ public static class DependencyInjection
     /// <returns></returns>
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
+        services.AddScoped<IClofiContext, ClofiContext>();
+
         return services;
     }
 }
