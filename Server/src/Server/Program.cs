@@ -16,7 +16,24 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddServices();
 builder.Services.AddRepositories();
 
+
+var myAllowSpecificOrigins = "_AllowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(myAllowSpecificOrigins, policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+
+}
+);
+
+builder.Services.AddControllers();
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -26,6 +43,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseCors(myAllowSpecificOrigins);
 
 app.UseAuthorization();
 
