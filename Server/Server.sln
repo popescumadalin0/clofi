@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E199543E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "src\Server\Server.csproj", "{C93F58AC-66AA-4194-A9FE-D56EF939528F}"
 	ProjectSection(ProjectDependencies) = postProject
+		{0DB14C53-372B-459B-8089-4CC8E02319B9} = {0DB14C53-372B-459B-8089-4CC8E02319B9}
 		{344DBF47-C1CB-4273-90BC-672B26773AEC} = {344DBF47-C1CB-4273-90BC-672B26773AEC}
 	EndProjectSection
 EndProject
@@ -20,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDK", "src\SDK\SDK.csproj",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "src\Models\Models.csproj", "{438BA567-78CD-475F-8007-7F15172A9820}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoMapper", "src\AutoMapper\AutoMapper.csproj", "{0DB14C53-372B-459B-8089-4CC8E02319B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoMapperProj", "src\AutoMapper\AutoMapperProj.csproj", "{0DB14C53-372B-459B-8089-4CC8E02319B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
