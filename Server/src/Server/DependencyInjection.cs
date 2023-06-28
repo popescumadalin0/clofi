@@ -1,4 +1,6 @@
-﻿using DatabaseLayout.Context;
+﻿using AutoMapper;
+using AutoMapperProj;
+using DatabaseLayout.Context;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Server;
@@ -13,7 +15,12 @@ public static class DependencyInjection
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IClofiContext, ClofiContext>();
+        return services;
+    }
 
+    public static IServiceCollection AddAutoMapper(this IServiceCollection services)
+    {
+        services.AddAutoMapper(typeof(MappingProfile));
         return services;
     }
 }

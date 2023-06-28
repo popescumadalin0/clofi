@@ -21,19 +21,19 @@ builder.Services.AddDbContext<ClofiContext>(options =>
 
 builder.Services.AddServices();
 builder.Services.AddRepositories();
+builder.Services.AddAutoMapper();
 
 
 var myAllowSpecificOrigins = "_AllowSpecificOrigins";
 builder.Services.AddCors(options =>
-{
-    options.AddPolicy(myAllowSpecificOrigins, policy =>
     {
-        policy.AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-
-}
+        options.AddPolicy(myAllowSpecificOrigins, policy =>
+        {
+            policy.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+    }
 );
 
 builder.Services.AddControllers();
