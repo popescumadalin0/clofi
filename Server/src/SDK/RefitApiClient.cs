@@ -1,39 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Refit;
+using SDK.Models;
 
 namespace SDK;
 
-public class RefitApiClient<T>
+public abstract class RefitApiClient<T> where T : class
 {
-    private readonly HttpClient _httpClient;
-    private readonly string _baseUrl;
+    public event OnApiCallExecuted OnApiCallExecuted = _param1 => { };
 
-    public RefitApiClient(string baseUrl)
+    public async Task<ApiResponseMessage<T>> Execute<T>(Task<T> task)
     {
-        _baseUrl = baseUrl;
-        _httpClient = new HttpClient();
+        try
+        {
+            T response = await task;
+            this.OnApiCallExecuted(new ApiResponseMessage(true));
+            return new ApiResponseMessage<T>(true, response);
+        }
+        catch (ApiException ex)
+        {
+            this.OnApiCallExecuted(new ApiResponseMessage(false, ex.StatusCode, ex.ReasonPhrase + " ; " + ex.Content));
+            return new ApiResponseMessage<T>(false, Activator.CreateInstance<T>(), ex.StatusCode, ex.ReasonPhrase + " ; " + ex.Content);
+        }
+        catch (Exception ex)
+        {
+            this.OnApiCallExecuted(new ApiResponseMessage(false, HttpStatusCode.InternalServerError, "SDK Common : " + ex.Message));
+            return new ApiResponseMessage<T>(false, Activator.CreateInstance<T>(), HttpStatusCode.InternalServerError, "SDK Common : " + ex.Message);
+        }
     }
 
-    public async Task<TResponse> Execute<TRequest, TResponse>(string endpoint, TRequest request)
+    public async Task<ApiResponseMessage> ExecuteWithNoContentResponse(
+        Task task)
     {
-        var fullUrl = $"{_baseUrl}/{endpoint}";
-
-        var httpRequest = new HttpRequestMessage(HttpMethod.Post, fullUrl);
-        httpRequest.Content = new StringContent(request.ToString()); // adjust this based on the actual request format
-
-        var response = await _httpClient.SendAsync(httpRequest);
-        response.EnsureSuccessStatusCode();
-
-        var responseBody = await response.Content.ReadAsStringAsync();
-
-        // Adjust this part based on the actual response format
-        var responseObject = JsonConvert.DeserializeObject<TResponse>(responseBody);
-
-        return responseObject;
+        try
+        {
+            await task;
+            this.OnApiCallExecuted(new ApiResponseMessage(true));
+            return new ApiResponseMessage(true);
+        }
+        catch (ApiException ex)
+        {
+            this.OnApiCallExecuted(new ApiResponseMessage(false, ex.StatusCode, ex.ReasonPhrase + " ; " + ex.Content));
+            return new ApiResponseMessage(false, ex.StatusCode, ex.ReasonPhrase + " ; " + ex.Content);
+        }
+        catch (Exception ex)
+        {
+            this.OnApiCallExecuted(new ApiResponseMessage(false, HttpStatusCode.InternalServerError, "SDK Common : " + ex.Message));
+            return new ApiResponseMessage(false, HttpStatusCode.InternalServerError, "SDK Common : " + ex.Message);
+        }
     }
 }

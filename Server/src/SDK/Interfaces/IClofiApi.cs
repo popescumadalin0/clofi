@@ -7,5 +7,5 @@ namespace SDK.Interfaces;
 public interface IClofiApi
 {
     [Get("/api/Client")]
-    Task<HttpResponseMessage> GetUsers();
+    Task<bool> GetUsers();
 }
