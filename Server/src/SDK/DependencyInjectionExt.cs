@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 using Refit;
+using SDK.Clients;
 using SDK.Interfaces;
 
 namespace SDK;
 
 /// <summary />
-public static class DependencyInjectionExtS
+public static class DependencyInjectionExt
 {
     /// <summary />
     public static IServiceCollection AddClofiApiClient(this IServiceCollection services, Uri url)

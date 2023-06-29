@@ -1,12 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
 using SDK.Interfaces;
-using SDK.Models;
 using System;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
+using SDK.RefitModels;
+using SDK.RefitModels.ResponseModels;
 
-namespace SDK;
+namespace SDK.Clients;
 
 public class ClofiApiClient : RefitApiClient<IClofiApi>, IClofiApiClient
 {
@@ -20,7 +19,7 @@ public class ClofiApiClient : RefitApiClient<IClofiApi>, IClofiApiClient
         _logger = logger;
     }
 
-    public async Task<ApiResponseMessage<bool>> GetUsers()
+    public async Task<ApiResponseMessage<UsersResponse>> GetUsers()
     {
         try
         {

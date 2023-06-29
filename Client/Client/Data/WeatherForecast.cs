@@ -1,3 +1,5 @@
+using System;
+
 namespace Client.Data
 {
     public class WeatherForecast

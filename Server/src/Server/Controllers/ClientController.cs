@@ -5,6 +5,8 @@ using DatabaseLayout.Context;
 using DatabaseLayout.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Models;
+using Server.Models;
 
 namespace Server.Controllers
 {
@@ -18,9 +20,9 @@ namespace Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<IActionResult> GetUsers()
         {
-            _ = await _clofiContext.Users.AddAsync(new User()
+            _ = await _clofiContext.Users.AddAsync(new UserDto()
             {
                 Description = "test user",
                 Name = "test",
@@ -28,7 +30,15 @@ namespace Server.Controllers
             await _clofiContext.SaveChangesAsync();
             var users = await _clofiContext.Users.ToListAsync();
 
-            return Ok(users);
+            //aici folosim automapper... ma rog toate astea se fac IN AFARA CONTROLLERULUI :)))
+            var usersResult = users.Select(x => new User()
+            {
+                Description = x.Description,
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
+
+            return ApiServiceResponse.ApiServiceResult(new ServiceResponse<List<User>>(usersResult));
         }
     }
 }

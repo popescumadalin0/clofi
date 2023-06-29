@@ -6,6 +6,6 @@ namespace DatabaseLayout.Context;
 
 public interface IClofiContext
 {
-    public DbSet<User> Users { get; set; }
+    public DbSet<UserDto> Users { get; set; }
     public Task<int> SaveChangesAsync();
 }

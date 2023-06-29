@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace SDK.Models;
+namespace SDK.RefitModels;
 
 public class ApiResponseMessage
 {

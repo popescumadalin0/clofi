@@ -7,9 +7,9 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Refit;
-using SDK.Models;
+using SDK.RefitModels;
 
-namespace SDK;
+namespace SDK.Clients;
 
 public abstract class RefitApiClient<T> where T : class
 {
@@ -20,17 +20,17 @@ public abstract class RefitApiClient<T> where T : class
         try
         {
             T response = await task;
-            this.OnApiCallExecuted(new ApiResponseMessage(true));
+            OnApiCallExecuted(new ApiResponseMessage(true));
             return new ApiResponseMessage<T>(true, response);
         }
         catch (ApiException ex)
         {
-            this.OnApiCallExecuted(new ApiResponseMessage(false, ex.StatusCode, ex.ReasonPhrase + " ; " + ex.Content));
+            OnApiCallExecuted(new ApiResponseMessage(false, ex.StatusCode, ex.ReasonPhrase + " ; " + ex.Content));
             return new ApiResponseMessage<T>(false, Activator.CreateInstance<T>(), ex.StatusCode, ex.ReasonPhrase + " ; " + ex.Content);
         }
         catch (Exception ex)
         {
-            this.OnApiCallExecuted(new ApiResponseMessage(false, HttpStatusCode.InternalServerError, "SDK Common : " + ex.Message));
+            OnApiCallExecuted(new ApiResponseMessage(false, HttpStatusCode.InternalServerError, "SDK Common : " + ex.Message));
             return new ApiResponseMessage<T>(false, Activator.CreateInstance<T>(), HttpStatusCode.InternalServerError, "SDK Common : " + ex.Message);
         }
     }
@@ -41,17 +41,17 @@ public abstract class RefitApiClient<T> where T : class
         try
         {
             await task;
-            this.OnApiCallExecuted(new ApiResponseMessage(true));
+            OnApiCallExecuted(new ApiResponseMessage(true));
             return new ApiResponseMessage(true);
         }
         catch (ApiException ex)
         {
-            this.OnApiCallExecuted(new ApiResponseMessage(false, ex.StatusCode, ex.ReasonPhrase + " ; " + ex.Content));
+            OnApiCallExecuted(new ApiResponseMessage(false, ex.StatusCode, ex.ReasonPhrase + " ; " + ex.Content));
             return new ApiResponseMessage(false, ex.StatusCode, ex.ReasonPhrase + " ; " + ex.Content);
         }
         catch (Exception ex)
         {
-            this.OnApiCallExecuted(new ApiResponseMessage(false, HttpStatusCode.InternalServerError, "SDK Common : " + ex.Message));
+            OnApiCallExecuted(new ApiResponseMessage(false, HttpStatusCode.InternalServerError, "SDK Common : " + ex.Message));
             return new ApiResponseMessage(false, HttpStatusCode.InternalServerError, "SDK Common : " + ex.Message);
         }
     }

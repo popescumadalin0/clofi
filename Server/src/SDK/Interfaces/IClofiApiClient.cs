@@ -1,6 +1,7 @@
-﻿using SDK.Models;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
+using SDK.RefitModels;
+using SDK.RefitModels.ResponseModels;
 
 namespace SDK.Interfaces;
 
@@ -10,5 +11,5 @@ public interface IClofiApiClient
     /// documentation.
     /// </summary>
     /// <returns></returns>
-    Task<ApiResponseMessage<bool>> GetUsers();
+    Task<ApiResponseMessage<UsersResponse>> GetUsers();
 }
