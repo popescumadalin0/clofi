@@ -32,6 +32,7 @@ namespace Server.Controllers
             });
             await _clofiContext.SaveChangesAsync();
             var users = await _clofiContext.Users.ToListAsync();
+
             var usersResult = _mapper.Map<List<User>>(users);
             return ApiServiceResponse.ApiServiceResult(new ServiceResponse<List<User>>(usersResult));
         }
