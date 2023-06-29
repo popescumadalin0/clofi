@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using DatabaseLayout.Context;
 using DatabaseLayout.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +14,12 @@ namespace Server.Controllers
     public class ClientController : BaseController
     {
         private readonly IClofiContext _clofiContext;
+        private readonly IMapper _mapper;
 
-        public ClientController(IClofiContext context)
+        public ClientController(IClofiContext context, IMapper mapper)
         {
             _clofiContext = context;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -29,15 +32,7 @@ namespace Server.Controllers
             });
             await _clofiContext.SaveChangesAsync();
             var users = await _clofiContext.Users.ToListAsync();
-
-            //aici folosim automapper... ma rog toate astea se fac IN AFARA CONTROLLERULUI :)))
-            var usersResult = users.Select(x => new User()
-            {
-                Description = x.Description,
-                Id = x.Id,
-                Name = x.Name
-            }).ToList();
-
+            var usersResult = _mapper.Map<List<User>>(users);
             return ApiServiceResponse.ApiServiceResult(new ServiceResponse<List<User>>(usersResult));
         }
     }
