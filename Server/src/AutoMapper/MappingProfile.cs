@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using DatabaseLayout.Models;
-using Models.DTOs;
+using DatabaseLayout.DTOs;
+using Models.Models;
 
 namespace AutoMapperProj
 {

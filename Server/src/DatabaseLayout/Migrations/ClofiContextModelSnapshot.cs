@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System;
 
 #nullable disable
 
@@ -22,7 +23,7 @@ namespace DatabaseLayout.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DatabaseLayout.Models.User", b =>
+            modelBuilder.Entity("DatabaseLayout.DTOs.UserDTO", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -35,6 +36,28 @@ namespace DatabaseLayout.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("UsernameHash")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("UsernameSalt")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RefreshTokenCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("RefreshTokenExpires")
+                        .HasColumnType("datetime2");
+
 
                     b.HasKey("Id");
 

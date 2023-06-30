@@ -3,10 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DatabaseLayout.Context;
-using DatabaseLayout.Models;
+using DatabaseLayout.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Models.DTOs;
+using Models.Models;
 
 namespace Server.Controllers
 {
@@ -24,10 +24,11 @@ namespace Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsers()
         {
-            _ = await _clofiContext.Users.AddAsync(new User()
+            _ = await _clofiContext.Users.AddAsync(new UserDTO()
             {
                 Description = "test user",
                 Name = "test",
+                Username = "test_username"
             });
             await _clofiContext.SaveChangesAsync();
             var users = await _clofiContext.Users.ToListAsync();
