@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using Models;
+using Models.DTOs;
 
 namespace SDK.RefitModels.ResponseModels;
 
 public class UsersResponse
 {
-    public List<User> Users { get; set; }
+    public List<UserDTO> Users { get; set; }
 }

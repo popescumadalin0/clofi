@@ -9,7 +9,7 @@ namespace AutoMapperProj
     {
         public MappingProfile()
         {
-            CreateMap<UserDto, User>();
+            CreateMap<UserDTO, User>();
             CreateMap<User, UserDTO>();
         }
     }
