@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DatabaseLayout.Models;
-using Models;
+using Models.Models;
 
 namespace AutoMapperProj
 {

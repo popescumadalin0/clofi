@@ -2,6 +2,7 @@
 using AutoMapperProj;
 using DatabaseLayout.Context;
 using Microsoft.Extensions.DependencyInjection;
+using Services;
 
 namespace Server;
 
@@ -21,6 +22,17 @@ public static class DependencyInjection
     public static IServiceCollection AddAutoMapper(this IServiceCollection services)
     {
         services.AddAutoMapper(typeof(MappingProfile));
+        return services;
+    }
+
+    public static IServiceCollection AddToken(this IServiceCollection services)
+    {
+        services.AddScoped<ITokenService, TokenService>();
+        return services;
+    }
+    public static IServiceCollection AddRefreshToken(this IServiceCollection services)
+    {
+        services.AddScoped<IRefreshTokenService, RefreshTokenService>();
         return services;
     }
 }

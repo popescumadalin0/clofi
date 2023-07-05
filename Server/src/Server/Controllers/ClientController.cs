@@ -6,7 +6,7 @@ using DatabaseLayout.Context;
 using DatabaseLayout.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Models;
+using Models.Models;
 using Server.Models;
 
 namespace Server.Controllers
