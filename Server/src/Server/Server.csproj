@@ -20,11 +20,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Interfaces\" />
-		<Folder Include="Repository\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\AutoMapper\AutoMapperProj.csproj" />
 	  <ProjectReference Include="..\DatabaseLayout\DatabaseLayout.csproj" />
 	  <ProjectReference Include="..\Models\Models.csproj" />
