@@ -9,7 +9,7 @@ public class ClofiContext : DbContext, IClofiContext
     public ClofiContext(DbContextOptions options)
         : base(options) { }
 
-    public DbSet<User> Users { get; set; }
+    public DbSet<UserDto> Users { get; set; }
 
     public async Task<int> SaveChangesAsync()
     {

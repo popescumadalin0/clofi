@@ -6,7 +6,8 @@ using DatabaseLayout.Context;
 using DatabaseLayout.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Models.DTOs;
+using Models;
+using Server.Models;
 
 namespace Server.Controllers
 {
@@ -22,18 +23,18 @@ namespace Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsers()
+        public async Task<IActionResult> GetUsers()
         {
-            _ = await _clofiContext.Users.AddAsync(new User()
+            _ = await _clofiContext.Users.AddAsync(new UserDto()
             {
                 Description = "test user",
                 Name = "test",
             });
             await _clofiContext.SaveChangesAsync();
             var users = await _clofiContext.Users.ToListAsync();
-            var userDto = _mapper.Map<List<UserDTO>>(users);
 
-            return Ok(userDto);
+            var usersResult = _mapper.Map<List<User>>(users);
+            return ApiServiceResponse.ApiServiceResult(new ServiceResponse<List<User>>(usersResult));
         }
     }
 }

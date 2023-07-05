@@ -22,7 +22,7 @@ namespace DatabaseLayout.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DatabaseLayout.Models.User", b =>
+            modelBuilder.Entity("DatabaseLayout.Models.UserDto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

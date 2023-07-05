@@ -1,4 +1,4 @@
-﻿namespace DatabaseLayout.Models;
+﻿namespace Models;
 
 public class User
 {

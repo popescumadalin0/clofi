@@ -1,0 +1,24 @@
+﻿@page "/testUserPage"
+@using SDK.Interfaces
+
+<PageTitle>Users</PageTitle>
+
+<h1>Users</h1>
+@foreach (var a in _users)
+{
+    <p role="status">@a<br/></p>
+}
+
+<button class="btn btn-primary" @onclick="GetUsers">Click me</button>
+
+@code {
+    [Inject]
+    public IClofiApiClient ClofiApiClient { get; set; }
+
+    private List<string> _users = new ();
+
+    private async Task GetUsers()
+    {
+        _users = (await ClofiApiClient.GetUsers()).Response.Users.Select(u => u.Name).ToList();
+    }
+}
