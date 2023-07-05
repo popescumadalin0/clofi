@@ -22,6 +22,8 @@ builder.Services.AddDbContext<ClofiContext>(options =>
 builder.Services.AddServices();
 builder.Services.AddRepositories();
 builder.Services.AddAutoMapper();
+builder.Services.AddToken();
+builder.Services.AddRefreshToken();
 
 
 var myAllowSpecificOrigins = "_AllowSpecificOrigins";

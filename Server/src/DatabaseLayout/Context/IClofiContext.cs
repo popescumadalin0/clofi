@@ -1,4 +1,4 @@
-﻿using DatabaseLayout.DTOs;
+﻿using DatabaseLayout.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 

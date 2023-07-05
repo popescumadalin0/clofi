@@ -1,6 +1,12 @@
+using System;
 using Client.Data;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using SDK;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+
+builder.Services.AddClofiApiClient(new Uri(builder.Configuration.GetConnectionString("ClofiApiSdk")));
 
 var app = builder.Build();
 

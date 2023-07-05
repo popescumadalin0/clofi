@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using DatabaseLayout.DTOs;
+using DatabaseLayout.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseLayout.Context;

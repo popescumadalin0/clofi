@@ -21,11 +21,7 @@ namespace DatabaseLayout.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UsernameHash = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    UsernameSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RefreshTokenCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RefreshTokenExpires = table.Column<DateTime>(type: "datetime2", nullable: true)
+
                 },
                 constraints: table =>
                 {

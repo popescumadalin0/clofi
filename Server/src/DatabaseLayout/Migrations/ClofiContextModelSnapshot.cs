@@ -23,7 +23,7 @@ namespace DatabaseLayout.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DatabaseLayout.DTOs.UserDTO", b =>
+            modelBuilder.Entity("DatabaseLayout.Models.UserDto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,10 +31,10 @@ namespace DatabaseLayout.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
@@ -42,22 +42,6 @@ namespace DatabaseLayout.Migrations
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("UsernameHash")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<byte[]>("UsernameSalt")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("RefreshToken")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("RefreshTokenCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("RefreshTokenExpires")
-                        .HasColumnType("datetime2");
-
 
                     b.HasKey("Id");
 

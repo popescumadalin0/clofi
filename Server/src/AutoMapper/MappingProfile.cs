@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DatabaseLayout.DTOs;
+using DatabaseLayout.Models;
 using Models.Models;
 
 namespace AutoMapperProj
@@ -8,7 +8,7 @@ namespace AutoMapperProj
     {
         public MappingProfile()
         {
-            CreateMap<User, UserDTO>();
+            CreateMap<UserDto, User>();
         }
     }
 }
