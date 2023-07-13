@@ -20,23 +20,4 @@ public class ClofiContext : DbContext, IClofiContext
     {
         return await base.SaveChangesAsync();
     }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<User>()
-            .HasKey(u => u.Id);
-
-        modelBuilder.Entity<UserConfig>()
-            .HasKey(c => c.Id);
-
-        modelBuilder.Entity<User>()
-            .HasOne(u => u.Config)
-            .WithOne(c => c.User)
-            .HasForeignKey<User>(u => u.ConfigId);
-
-        modelBuilder.Entity<UserConfig>()
-            .HasOne(c => c.User)
-            .WithOne(u => u.Config)
-            .HasForeignKey<UserConfig>(c => c.UserId);
-    }
 }

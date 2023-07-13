@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using DatabaseLayout.Models;
 using Microsoft.AspNetCore.Mvc;
+using Models.DTOs;
 using Server.Interfaces;
 
 namespace Server.Controllers;
@@ -10,82 +11,83 @@ namespace Server.Controllers;
 public class UserController : BaseController
 {
     private readonly IUserRepository _userRepository;
+    private readonly IMapper _mapper;
 
-    public UserController(IUserRepository userRepository)
+    public UserController(IUserRepository userRepository, IMapper mapper)
     {
         _userRepository = userRepository;
+        _mapper = mapper;
     }
 
     [HttpGet]
-    [ProducesResponseType(200, Type = typeof(IEnumerable<User>))]
     public async Task<IActionResult> GetUsers()
     {
-        var users = await _userRepository.GetUsers();
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
+        var users = _mapper.Map<ICollection<User>>(await _userRepository.GetUsers());
         return Ok(users);
     }
 
     [HttpGet("{id}")]
-    [ProducesResponseType(200, Type = typeof(User))]
-    [ProducesResponseType(400)]
     public async Task<IActionResult> GetUser(int id)
     {
-        var user = await _userRepository.GetUser(id);
+        var userDto = await _userRepository.GetUser(id);
+        if (userDto == null)
+        {
+            return NotFound();
+        }
 
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
+        var user = _mapper.Map<User>(userDto);
         return Ok(user);
     }
 
-    [HttpGet("{userId}/assignments")]
-    [ProducesResponseType(200, Type = typeof(IEnumerable<Assignment>))]
-    public async Task<IActionResult> GetAssignments(int userId)
+    [HttpPost]
+    public async Task<IActionResult> CreateUser([FromBody] UserDTO newUserDto)
     {
-        var assignments = await _userRepository.GetAssignments(userId);
-        if (!ModelState.IsValid)
+        if (newUserDto == null)
         {
-            return BadRequest(ModelState);
+            return BadRequest();
         }
-        return Ok(assignments);
+
+        await _userRepository.CreateUser(newUserDto);
+
+        var createdUserDto = await _userRepository.GetUser(newUserDto.Id);
+        var createdUser = _mapper.Map<User>(createdUserDto);
+
+        return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, createdUser);
     }
 
-    [HttpGet("{userId}/notes")]
-    [ProducesResponseType(200, Type = typeof(IEnumerable<Note>))]
-    public async Task<IActionResult> GetNotes(int userId)
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateUser(int id, [FromBody] UserDTO updatedUserDto)
     {
-        var notes = await _userRepository.GetNotes(userId);
-        if (!ModelState.IsValid)
+        if (id != updatedUserDto.Id)
         {
-            return BadRequest(ModelState);
+            return BadRequest();
         }
-        return Ok(notes);
+
+        var existingUserDto = await _userRepository.GetUser(id);
+        if (existingUserDto == null)
+        {
+            return NotFound();
+        }
+
+        var existingUser = _mapper.Map<User>(existingUserDto);
+        _mapper.Map(updatedUserDto, existingUser);
+
+        await _userRepository.UpdateUser(updatedUserDto);
+
+        return NoContent();
     }
 
-    [HttpGet("{userId}/alarms")] 
-    [ProducesResponseType(200, Type = typeof(IEnumerable<Alarm>))]
-    public async Task<IActionResult> GetAlarms(int userId)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
     {
-        var alarms = await _userRepository.GetAlarms(userId);
-        if (!ModelState.IsValid)
+        var userDto = await _userRepository.GetUser(id);
+        if (userDto == null)
         {
-            return BadRequest(ModelState);
+            return NotFound();
         }
-        return Ok(alarms);
-    }
 
-    [HttpGet("{userId}/userConfig")]
-    [ProducesResponseType(200, Type = typeof(UserConfig))]
-    public async Task<IActionResult> GetUserConfig(int userId)
-    {
-        var userConfig = await _userRepository.GetUserConfig(userId);
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-        return Ok(userConfig);
+        await _userRepository.DeleteUser(id);
+
+        return NoContent();
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
 
 namespace DatabaseLayout.Models;
 
@@ -12,9 +10,8 @@ public class User
     public string Password { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public int? ConfigId { get; set; }
-    public UserConfig Config { get; set; }
+    public virtual UserConfig UserConfig { get; set; }
     public ICollection<Assignment> Tasks { get; set; }
     public ICollection<Note> Notes { get; set; }
-    public ICollection<Alarm> Alarms { get; set; }
+    public ICollection<Alarm> Alarms { get; set; }  
 }

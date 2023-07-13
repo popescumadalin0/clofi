@@ -1,16 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DatabaseLayout.Models;
+using Models.DTOs;
 
 namespace Server.Interfaces;
 
 public interface IUserRepository
 {
-    Task<ICollection<User>> GetUsers();
-    Task<User> GetUser(int id);
-    Task<ICollection<Assignment>> GetAssignments(int userId);
-    Task<ICollection<Note>> GetNotes(int userId);
-    Task<ICollection<Alarm>> GetAlarms(int userId);
-    Task<UserConfig> GetUserConfig(int userId);
+    Task<ICollection<UserDTO>> GetUsers();
+    Task<UserDTO> GetUser(int id);
+    Task CreateUser(UserDTO user);
+    Task UpdateUser(UserDTO userDto);
+    Task DeleteUser(int id);
 }

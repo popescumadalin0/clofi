@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using AutoMapperProj;
+﻿using AutoMapperProj;
 using DatabaseLayout.Context;
 using Microsoft.Extensions.DependencyInjection;
 using Server.Interfaces;

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DatabaseLayout.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,8 +21,7 @@ namespace DatabaseLayout.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConfigId = table.Column<int>(type: "int", nullable: true)
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -97,19 +96,17 @@ namespace DatabaseLayout.Migrations
                 name: "UserConfigs",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Language = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Volume = table.Column<int>(type: "int", nullable: false),
-                    NightMode = table.Column<bool>(type: "bit", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    NightMode = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserConfigs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserConfigs_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_UserConfigs_Users_Id",
+                        column: x => x.Id,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -129,12 +126,6 @@ namespace DatabaseLayout.Migrations
                 name: "IX_Notes_UserId",
                 table: "Notes",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserConfigs_UserId",
-                table: "UserConfigs",
-                column: "UserId",
-                unique: true);
         }
 
         /// <inheritdoc />

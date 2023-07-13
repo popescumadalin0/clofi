@@ -1,3 +1,4 @@
+using System;
 using DatabaseLayout.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,7 @@ builder.Services.AddDbContext<ClofiContext>(options =>
 builder.Services.AddServices();
 builder.Services.AddRepositories();
 builder.Services.AddAutoMapper();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
 var myAllowSpecificOrigins = "_AllowSpecificOrigins";

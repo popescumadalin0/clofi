@@ -15,9 +15,4 @@ public class UserConfigRepository : IUserConfigRepository
     {
         _context = context;
     }
-
-    public async Task<UserConfig> GetUserConfig(int id)
-    {
-        return await _context.UserConfigs.Where(c => c.Id == id).FirstOrDefaultAsync();
-    }
 }

@@ -6,6 +6,4 @@ namespace Server.Interfaces;
 
 public interface IAlarmRepository
 {
-    Task<ICollection<Alarm>> GetAlarms();
-    Task<Alarm> GetAlarm(int id);
 }

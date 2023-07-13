@@ -10,19 +10,10 @@ namespace Server.Repository;
 
 public class NoteRepository : INoteRepository
 {
-    private readonly ClofiContext _context;
+    private readonly IClofiContext _context;
 
-    public NoteRepository(ClofiContext context)
+    public NoteRepository(IClofiContext context)
     {
         _context = context;
-    }
-    public async Task<ICollection<Note>> GetNotes()
-    {
-        return await _context.Notes.OrderBy(n => n.Id).ToListAsync();
-    }
-
-    public async Task<Note> GetNote(int id)
-    {
-        return await _context.Notes.Where(n => n.Id == id).FirstOrDefaultAsync();
     }
 }

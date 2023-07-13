@@ -6,9 +6,23 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="Models\" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Refit" Version="6.3.2" />
+		<PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<Folder Include="RefitModels\RequestModels\" />
+		<Folder Include="Models\" />
+		<Folder Include="Clients\" />
+		<Folder Include="Interfaces\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference PrivateAssets="All" Include="..\Models\Models.csproj" />
+	</ItemGroup>
 
 	<PropertyGroup>
 		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>

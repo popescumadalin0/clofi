@@ -10,19 +10,10 @@ namespace Server.Repository;
 
 public class AlarmRepository : IAlarmRepository
 {
-    private readonly ClofiContext _context;
+    private readonly IClofiContext _context;
 
-    public AlarmRepository(ClofiContext context)
+    public AlarmRepository(IClofiContext context)
     {
         _context = context;
-    }
-    public async Task<ICollection<Alarm>> GetAlarms()
-    {
-        return await _context.Alarms.OrderBy(a => a.Id).ToListAsync();
-    }
-
-    public async Task<Alarm> GetAlarm(int id)
-    {
-        return await _context.Alarms.Where(a => a.Id == id).FirstOrDefaultAsync();
     }
 }

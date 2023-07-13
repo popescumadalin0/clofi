@@ -114,9 +114,6 @@ namespace DatabaseLayout.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ConfigId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -140,10 +137,7 @@ namespace DatabaseLayout.Migrations
             modelBuilder.Entity("DatabaseLayout.Models.UserConfig", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Language")
                         .HasColumnType("nvarchar(max)");
@@ -151,16 +145,10 @@ namespace DatabaseLayout.Migrations
                     b.Property<bool>("NightMode")
                         .HasColumnType("bit");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Volume")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
 
                     b.ToTable("UserConfigs");
                 });
@@ -195,8 +183,8 @@ namespace DatabaseLayout.Migrations
             modelBuilder.Entity("DatabaseLayout.Models.UserConfig", b =>
                 {
                     b.HasOne("DatabaseLayout.Models.User", "User")
-                        .WithOne("Config")
-                        .HasForeignKey("DatabaseLayout.Models.UserConfig", "UserId")
+                        .WithOne("UserConfig")
+                        .HasForeignKey("DatabaseLayout.Models.UserConfig", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -207,11 +195,11 @@ namespace DatabaseLayout.Migrations
                 {
                     b.Navigation("Alarms");
 
-                    b.Navigation("Config");
-
                     b.Navigation("Notes");
 
                     b.Navigation("Tasks");
+
+                    b.Navigation("UserConfig");
                 });
 #pragma warning restore 612, 618
         }
