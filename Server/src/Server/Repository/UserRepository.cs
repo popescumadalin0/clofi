@@ -21,25 +21,25 @@ public class UserRepository : IUserRepository
         _mapper = mapper;
     }
 
-    public async Task<ICollection<UserDTO>> GetUsers()
+    public async Task<ICollection<global::Models.DTOs.User>> GetUsers()
     {
-        return _mapper.Map<ICollection<UserDTO>>(await _context.Users.ToListAsync());
+        return _mapper.Map<ICollection<global::Models.DTOs.User>>(await _context.Users.ToListAsync());
     }
 
-    public async Task<UserDTO> GetUser(int id)
+    public async Task<global::Models.DTOs.User> GetUser(int id)
     { 
-        return _mapper.Map<UserDTO>(await _context.Users.FindAsync(id));
+        return _mapper.Map<global::Models.DTOs.User>(await _context.Users.FindAsync(id));
     }
 
-    public async Task CreateUser(UserDTO userDto)
+    public async Task CreateUser(global::Models.DTOs.User userDto)
     {
-        var user = _mapper.Map<User>(userDto);
+        var user = _mapper.Map<DatabaseLayout.Models.User>(userDto);
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
         userDto.Id = user.Id;
     }
 
-    public async Task UpdateUser(UserDTO userDto)
+    public async Task UpdateUser(global::Models.DTOs.User userDto)
     {
         var user = await _context.Users.FindAsync(userDto.Id);
         _mapper.Map(userDto, user);

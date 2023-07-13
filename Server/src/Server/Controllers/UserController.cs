@@ -22,7 +22,7 @@ public class UserController : BaseController
     [HttpGet]
     public async Task<IActionResult> GetUsers()
     {
-        var users = _mapper.Map<ICollection<User>>(await _userRepository.GetUsers());
+        var users = _mapper.Map<ICollection<DatabaseLayout.Models.User>>(await _userRepository.GetUsers());
         return Ok(users);
     }
 
@@ -35,12 +35,12 @@ public class UserController : BaseController
             return NotFound();
         }
 
-        var user = _mapper.Map<User>(userDto);
+        var user = _mapper.Map<DatabaseLayout.Models.User>(userDto);
         return Ok(user);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateUser([FromBody] UserDTO newUserDto)
+    public async Task<IActionResult> CreateUser([FromBody] global::Models.DTOs.User newUserDto)
     {
         if (newUserDto == null)
         {
@@ -50,13 +50,13 @@ public class UserController : BaseController
         await _userRepository.CreateUser(newUserDto);
 
         var createdUserDto = await _userRepository.GetUser(newUserDto.Id);
-        var createdUser = _mapper.Map<User>(createdUserDto);
+        var createdUser = _mapper.Map<DatabaseLayout.Models.User>(createdUserDto);
 
         return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, createdUser);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateUser(int id, [FromBody] UserDTO updatedUserDto)
+    public async Task<IActionResult> UpdateUser(int id, [FromBody] global::Models.DTOs.User updatedUserDto)
     {
         if (id != updatedUserDto.Id)
         {
@@ -69,7 +69,7 @@ public class UserController : BaseController
             return NotFound();
         }
 
-        var existingUser = _mapper.Map<User>(existingUserDto);
+        var existingUser = _mapper.Map<DatabaseLayout.Models.User>(existingUserDto);
         _mapper.Map(updatedUserDto, existingUser);
 
         await _userRepository.UpdateUser(updatedUserDto);

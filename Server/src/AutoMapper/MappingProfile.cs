@@ -9,8 +9,8 @@ namespace AutoMapperProj
     {
         public MappingProfile()
         {
-            CreateMap<User, UserDTO>();
-            CreateMap<UserDTO, User>();
+            CreateMap<Models.DTOs.User, DatabaseLayout.Models.User>();
+            CreateMap<DatabaseLayout.Models.User, Models.DTOs.User>();
             CreateMap<Note, NoteDTO>();
             CreateMap<NoteDTO, Note>();
         }

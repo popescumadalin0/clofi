@@ -6,5 +6,5 @@ namespace SDK.RefitModels.ResponseModels;
 
 public class UsersResponse
 {
-    public List<UserDTO> Users { get; set; }
+    public List<User> Users { get; set; }
 }
