@@ -23,8 +23,7 @@ public class UserController : BaseController
     public async Task<IActionResult> GetUsers()
     {
         var usersDto = await _userRepository.GetUsers();
-        var users = _mapper.Map<ICollection<DatabaseLayout.Models.User>>(usersDto);
-        return Ok(users);
+        return Ok(usersDto);
     }
 
     [HttpGet("{id}")]
@@ -36,8 +35,7 @@ public class UserController : BaseController
             return NotFound();
         }
 
-        var user = _mapper.Map<DatabaseLayout.Models.User>(userDto);
-        return Ok(user);
+        return Ok(userDto);
     }
 
     [HttpPost]
@@ -50,10 +48,7 @@ public class UserController : BaseController
 
         await _userRepository.CreateUser(newUserDto);
 
-        var createdUserDto = await _userRepository.GetUser(newUserDto.Id);
-        var createdUser = _mapper.Map<DatabaseLayout.Models.User>(createdUserDto);
-
-        return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, createdUser);
+        return CreatedAtAction(nameof(GetUser), new { id = newUserDto.Id }, newUserDto);
     }
 
     [HttpPut("{id}")]
@@ -69,9 +64,6 @@ public class UserController : BaseController
         {
             return NotFound();
         }
-
-        var existingUser = _mapper.Map<DatabaseLayout.Models.User>(existingUserDto);
-        _mapper.Map(updatedUserDto, existingUser);
 
         await _userRepository.UpdateUser(updatedUserDto);
 
