@@ -1,8 +1,4 @@
-﻿using DatabaseLayout.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Server.Interfaces;
+﻿using Server.Interfaces;
 
 namespace Server.Controllers;
 

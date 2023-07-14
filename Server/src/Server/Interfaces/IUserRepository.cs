@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DatabaseLayout.Models;
-using Models.DTOs;
 
 namespace Server.Interfaces;
 

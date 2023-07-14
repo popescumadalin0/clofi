@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DatabaseLayout.Context;
-using DatabaseLayout.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using DatabaseLayout.Context;
 using Server.Interfaces;
 
 namespace Server.Repository;

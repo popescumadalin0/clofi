@@ -1,10 +1,5 @@
-﻿using DatabaseLayout.Models;
-using Microsoft.AspNetCore.Mvc;
-using Server.Interfaces;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Server.Interfaces;
 using AutoMapper;
-using Models.DTOs;
 
 namespace Server.Controllers;
 

@@ -1,8 +1,4 @@
-﻿using DatabaseLayout.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Server.Interfaces;
+﻿namespace Server.Interfaces;
 
 public interface INoteRepository
 {

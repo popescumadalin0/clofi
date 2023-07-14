@@ -1,7 +1,4 @@
-﻿using DatabaseLayout.Models;
-using System.Threading.Tasks;
-
-namespace Server.Interfaces;
+﻿namespace Server.Interfaces;
 
 public interface IUserConfigRepository
 {
