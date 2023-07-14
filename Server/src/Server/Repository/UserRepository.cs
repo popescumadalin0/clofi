@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DatabaseLayout.Context;
-using DatabaseLayout.Models;
 using Microsoft.EntityFrameworkCore;
-using Models.DTOs;
 using Server.Interfaces;
 
 namespace Server.Repository;
@@ -23,12 +20,14 @@ public class UserRepository : IUserRepository
 
     public async Task<ICollection<global::Models.DTOs.User>> GetUsers()
     {
-        return _mapper.Map<ICollection<global::Models.DTOs.User>>(await _context.Users.ToListAsync());
+        var users = await _context.Users.ToListAsync();
+        return _mapper.Map<ICollection<global::Models.DTOs.User>>(users);
     }
 
     public async Task<global::Models.DTOs.User> GetUser(int id)
-    { 
-        return _mapper.Map<global::Models.DTOs.User>(await _context.Users.FindAsync(id));
+    {
+        var user = await _context.Users.FindAsync(id);
+        return _mapper.Map<global::Models.DTOs.User>(user);
     }
 
     public async Task CreateUser(global::Models.DTOs.User userDto)

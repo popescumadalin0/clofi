@@ -22,7 +22,8 @@ public class UserController : BaseController
     [HttpGet]
     public async Task<IActionResult> GetUsers()
     {
-        var users = _mapper.Map<ICollection<DatabaseLayout.Models.User>>(await _userRepository.GetUsers());
+        var usersDto = await _userRepository.GetUsers();
+        var users = _mapper.Map<ICollection<DatabaseLayout.Models.User>>(usersDto);
         return Ok(users);
     }
 
