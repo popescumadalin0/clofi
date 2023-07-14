@@ -1,4 +1,5 @@
 using System;
+using Client;
 using Client.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
@@ -16,6 +17,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddClofiApiClient(new Uri(builder.Configuration.GetConnectionString("ClofiApiSdk")));
+builder.Services.AddServices();
 
 var app = builder.Build();
 
