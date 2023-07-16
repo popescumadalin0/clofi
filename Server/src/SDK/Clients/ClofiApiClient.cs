@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
-using SDK.Interfaces;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using SDK.Interfaces;
 using SDK.RefitModels;
 using SDK.RefitModels.ResponseModels;
 
@@ -13,7 +13,7 @@ public class ClofiApiClient : RefitApiClient<IClofiApi>, IClofiApiClient
 
     private readonly ILogger<ClofiApiClient> _logger;
 
-    public ClofiApiClient(IClofiApi apiClient, ILogger<ClofiApiClient> logger) : base()
+    public ClofiApiClient(IClofiApi apiClient, ILogger<ClofiApiClient> logger)
     {
         _apiClient = apiClient;
         _logger = logger;

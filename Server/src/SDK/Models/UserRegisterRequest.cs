@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Models.Models
+namespace SDK.Models
 {
     public class UserRegisterRequest
     {
@@ -14,6 +10,5 @@ namespace Models.Models
         public string Password { get; set; } = string.Empty;
         [Required, Compare("Password")]
         public string ConfirmPassword { get; set; } = string.Empty;
-
     }
 }

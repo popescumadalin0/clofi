@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Models.Models;
+﻿using System.Collections.Generic;
+using Models;
 
 namespace SDK.RefitModels.ResponseModels;
 
 public class UsersResponse
 {
-    public List<User> Users { get; set; }
+    public List<UserDTO> Users { get; set; }
 }

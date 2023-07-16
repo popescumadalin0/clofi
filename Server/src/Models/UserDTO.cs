@@ -1,11 +1,7 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Models.Models
+namespace Models
 {
-    public class User
+    public class UserDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -13,9 +9,8 @@ namespace Models.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public byte[] UsernameHash { get; set; }
-        public byte[] UserNameSalt { get; set; }
+        public byte[] UsernameSalt { get; set; }
         public string RefreshToken { get; set; }
-
-
+        public string Token { get; set; }
     }
 }

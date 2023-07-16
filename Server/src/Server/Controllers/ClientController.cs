@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DatabaseLayout.Context;
-using DatabaseLayout.DTOs;
+using DatabaseLayout.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Models.Models;
+using Models;
 using Server.Models;
 
 namespace Server.Controllers
@@ -25,7 +24,7 @@ namespace Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            _ = await _clofiContext.Users.AddAsync(new UserDTO()
+            _ = await _clofiContext.Users.AddAsync(new User
             {
                 Description = "test user",
                 Name = "test",
@@ -34,8 +33,8 @@ namespace Server.Controllers
             await _clofiContext.SaveChangesAsync();
             var users = await _clofiContext.Users.ToListAsync();
 
-            var usersResult = _mapper.Map<List<User>>(users);
-            return ApiServiceResponse.ApiServiceResult(new ServiceResponse<List<User>>(usersResult));
+            var usersResult = _mapper.Map<List<UserDTO>>(users);
+            return ApiServiceResponse.ApiServiceResult(new ServiceResponse<List<UserDTO>>(usersResult));
         }
     }
 }

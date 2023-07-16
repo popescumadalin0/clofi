@@ -1,8 +1,10 @@
-﻿using AutoMapper;
-using AutoMapperProj;
+﻿using AutoMapperProj;
 using DatabaseLayout.Context;
 using Microsoft.Extensions.DependencyInjection;
+using Server.Interfaces;
+using Server.Repository;
 using Services;
+using Services.Interfaces;
 
 namespace Server;
 
@@ -33,6 +35,11 @@ public static class DependencyInjection
     public static IServiceCollection AddRefreshToken(this IServiceCollection services)
     {
         services.AddScoped<IRefreshTokenService, RefreshTokenService>();
+        return services;
+    }
+    public static IServiceCollection AddUserRepository(this IServiceCollection services)
+    {
+        services.AddScoped<IUserRepository, UserRepository>();
         return services;
     }
 }

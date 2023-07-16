@@ -1,4 +1,6 @@
+using System;
 using DatabaseLayout.Context;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -6,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Server;
 using Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +27,7 @@ builder.Services.AddRepositories();
 builder.Services.AddAutoMapper();
 builder.Services.AddToken();
 builder.Services.AddRefreshToken();
+builder.Services.AddUserRepository();
 
 
 var myAllowSpecificOrigins = "_AllowSpecificOrigins";
@@ -38,10 +42,27 @@ builder.Services.AddCors(options =>
     }
 );
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+}).AddCookie(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(3);
+    options.SlidingExpiration = true;
+    options.AccessDeniedPath = "/Forbidden/";
+});
+
+
+
 builder.Services.AddControllers();
 
 var app = builder.Build();
 
+
+app.UseAuthentication();
+app.MapDefaultControllerRoute();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
