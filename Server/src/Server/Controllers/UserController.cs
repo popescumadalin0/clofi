@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Server.Interfaces;
+using Server.Models;
 
 namespace Server.Controllers;
 
@@ -19,65 +21,35 @@ public class UserController : BaseController
     [HttpGet]
     public async Task<IActionResult> GetUsers()
     {
-        var usersDto = await _userRepository.GetUsers();
-        return Ok(usersDto);
+        var users = await _userRepository.GetUsers();
+        return ApiServiceResponse.ApiServiceResult(users);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetUser(int id)
     {
-        var userDto = await _userRepository.GetUser(id);
-        if (userDto == null)
-        {
-            return NotFound();
-        }
-
-        return Ok(userDto);
+        var user = await _userRepository.GetUser(id);
+        return ApiServiceResponse.ApiServiceResult(user);
     }
 
     [HttpPost]
     public async Task<IActionResult> CreateUser([FromBody] global::Models.DTOs.User newUserDto)
     {
-        if (newUserDto == null)
-        {
-            return BadRequest();
-        }
-
-        await _userRepository.CreateUser(newUserDto);
-
-        return CreatedAtAction(nameof(GetUser), new { id = newUserDto.Id }, newUserDto);
+        var result = await _userRepository.CreateUser(newUserDto);
+        return ApiServiceResponse.ApiServiceResult(result);
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateUser(int id, [FromBody] global::Models.DTOs.User updatedUserDto)
+    [HttpPut]
+    public async Task<IActionResult> UpdateUser([FromBody] global::Models.DTOs.User updatedUserDto)
     {
-        if (id != updatedUserDto.Id)
-        {
-            return BadRequest();
-        }
-
-        var existingUserDto = await _userRepository.GetUser(id);
-        if (existingUserDto == null)
-        {
-            return NotFound();
-        }
-
-        await _userRepository.UpdateUser(updatedUserDto);
-
-        return NoContent();
+        var result = await _userRepository.UpdateUser(updatedUserDto);
+        return ApiServiceResponse.ApiServiceResult(result);
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var userDto = await _userRepository.GetUser(id);
-        if (userDto == null)
-        {
-            return NotFound();
-        }
-
-        await _userRepository.DeleteUser(id);
-
-        return NoContent();
+        var result = await _userRepository.DeleteUser(id);
+        return ApiServiceResponse.ApiServiceResult(result);
     }
 }
