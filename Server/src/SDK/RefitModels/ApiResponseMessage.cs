@@ -6,16 +6,16 @@ public class ApiResponseMessage
 {
     public ApiResponseMessage(bool success, HttpStatusCode statusCode = HttpStatusCode.OK, string responseMessage = null)
     {
-        this.Success = success;
-        this.ResponseMessage = responseMessage;
-        this.StatusCode = (int)statusCode;
+        Success = success;
+        ResponseMessage = responseMessage;
+        StatusCode = (int)statusCode;
     }
 
     public ApiResponseMessage(bool success, int statusCode, string responseMessage = null)
     {
-        this.Success = success;
-        this.ResponseMessage = responseMessage;
-        this.StatusCode = statusCode;
+        Success = success;
+        ResponseMessage = responseMessage;
+        StatusCode = statusCode;
     }
 
     public bool Success { get; set; }
@@ -33,18 +33,18 @@ public class ApiResponseMessage<T>
         HttpStatusCode statusCode = HttpStatusCode.OK,
         string responseMessage = null)
     {
-        this.Success = success;
-        this.ResponseMessage = responseMessage;
-        this.StatusCode = (int)statusCode;
-        this.Response = response;
+        Success = success;
+        ResponseMessage = responseMessage;
+        StatusCode = (int)statusCode;
+        Response = response;
     }
 
     public ApiResponseMessage(bool success, T response, int statusCode, string responseMessage = null)
     {
-        this.Success = success;
-        this.ResponseMessage = responseMessage;
-        this.StatusCode = statusCode;
-        this.Response = response;
+        Success = success;
+        ResponseMessage = responseMessage;
+        StatusCode = statusCode;
+        Response = response;
     }
 
     public bool Success { get; set; }

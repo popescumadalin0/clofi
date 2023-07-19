@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Models;
+﻿using System.Collections.Generic;
+using Models.DTOs;
 
 namespace SDK.RefitModels.ResponseModels;
 
