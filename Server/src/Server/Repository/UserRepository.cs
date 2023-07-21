@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DatabaseLayout.Context;
 using Microsoft.EntityFrameworkCore;
-using Models.DTOs;
+using Models;
 using Server.Interfaces;
 using Server.Models;
 
@@ -21,7 +21,7 @@ public class UserRepository : IUserRepository
         _mapper = mapper;
     }
 
-    public async Task<ServiceResponse<List<User>>> GetUsers()
+    public async Task<ServiceResponse<List<User>>> GetUsersAsync()
     {
         try
         {
@@ -35,7 +35,7 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public async Task<ServiceResponse<User>> GetUser(int id)
+    public async Task<ServiceResponse<User>> GetUserAsync(int id)
     {
         try
         {
@@ -49,14 +49,13 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public async Task<ServiceResponse> CreateUser(User userDto)
+    public async Task<ServiceResponse> CreateUserAsync(User userDto)
     {
         try
         {
             var user = _mapper.Map<DatabaseLayout.Models.User>(userDto);
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            userDto.Id = user.Id;
             return new ServiceResponse();
         }
         catch (Exception ex)
@@ -65,7 +64,7 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public async Task<ServiceResponse> UpdateUser(User userDto)
+    public async Task<ServiceResponse> UpdateUserAsync(User userDto)
     {
         try
         {
@@ -80,7 +79,7 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public async Task<ServiceResponse> DeleteUser(int id)
+    public async Task<ServiceResponse> DeleteUserAsync(int id)
     {
         try
         {

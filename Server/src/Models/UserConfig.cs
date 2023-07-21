@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Models.DTOs;
+﻿namespace Models;
 
 public class UserConfig
 {

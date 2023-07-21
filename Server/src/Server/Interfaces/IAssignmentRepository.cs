@@ -6,9 +6,9 @@ namespace Server.Interfaces;
 
 public interface IAssignmentRepository
 {
-    Task<ServiceResponse<List<global::Models.DTOs.Assignment>>> GetAssignments();
-    Task<ServiceResponse<global::Models.DTOs.Assignment>> GetAssignment(int id);
-    Task<ServiceResponse> CreateAssignment(global::Models.DTOs.Assignment assignment);
-    Task<ServiceResponse> UpdateAssignment(global::Models.DTOs.Assignment assignment);
-    Task<ServiceResponse> DeleteAssignment(int id);
+    Task<ServiceResponse<List<global::Models.Assignment>>> GetAssignmentsAsync();
+    Task<ServiceResponse<global::Models.Assignment>> GetAssignmentAsync(int id);
+    Task<ServiceResponse> CreateAssignmentAsync(global::Models.Assignment assignment);
+    Task<ServiceResponse> UpdateAssignmentAsync(global::Models.Assignment assignment);
+    Task<ServiceResponse> DeleteAssignmentAsync(int id);
 }

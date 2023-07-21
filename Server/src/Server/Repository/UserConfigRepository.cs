@@ -6,7 +6,7 @@ using Server.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
-using Models.DTOs;
+using Models;
 
 namespace Server.Repository;
 
@@ -21,7 +21,7 @@ public class UserConfigRepository : IUserConfigRepository
         _mapper = mapper;
     }
 
-    public async Task<ServiceResponse<List<UserConfig>>> GetConfigs()
+    public async Task<ServiceResponse<List<UserConfig>>> GetConfigsAsync()
     {
         try
         {
@@ -35,7 +35,7 @@ public class UserConfigRepository : IUserConfigRepository
         }
     }
 
-    public async Task<ServiceResponse<UserConfig>> GetConfig(int id)
+    public async Task<ServiceResponse<UserConfig>> GetConfigAsync(int id)
     {
         try
         {
@@ -49,7 +49,7 @@ public class UserConfigRepository : IUserConfigRepository
         }
     }
 
-    public async Task<ServiceResponse> CreateConfig(UserConfig configDto)
+    public async Task<ServiceResponse> CreateConfigAsync(UserConfig configDto)
     {
         try
         {
@@ -69,7 +69,7 @@ public class UserConfigRepository : IUserConfigRepository
         }
     }
 
-    public async Task<ServiceResponse> UpdateConfig(UserConfig configDto)
+    public async Task<ServiceResponse> UpdateConfigAsync(UserConfig configDto)
     {
         try
         {
@@ -84,7 +84,7 @@ public class UserConfigRepository : IUserConfigRepository
         }
     }
 
-    public async Task<ServiceResponse> DeleteConfig(int id)
+    public async Task<ServiceResponse> DeleteConfigAsync(int id)
     {
         try
         {

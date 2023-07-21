@@ -6,7 +6,7 @@ using Server.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
-using Models.DTOs;
+using Models;
 
 namespace Server.Repository;
 
@@ -21,7 +21,7 @@ public class AlarmRepository : IAlarmRepository
         _mapper = mapper;
     }
 
-    public async Task<ServiceResponse<List<Alarm>>> GetAlarms()
+    public async Task<ServiceResponse<List<Alarm>>> GetAlarmsAsync()
     {
         try
         {
@@ -35,7 +35,7 @@ public class AlarmRepository : IAlarmRepository
         }
     }
 
-    public async Task<ServiceResponse<Alarm>> GetAlarm(int id)
+    public async Task<ServiceResponse<Alarm>> GetAlarmAsync(int id)
     {
         try
         {
@@ -49,14 +49,13 @@ public class AlarmRepository : IAlarmRepository
         }
     }
 
-    public async Task<ServiceResponse> CreateAlarm(Alarm alarmDto)
+    public async Task<ServiceResponse> CreateAlarmAsync(Alarm alarmDto)
     {
         try
         {
             var alarm = _mapper.Map<DatabaseLayout.Models.Alarm>(alarmDto);
             _context.Alarms.Add(alarm);
             await _context.SaveChangesAsync();
-            alarmDto.Id = alarm.Id;
             return new ServiceResponse();
         }
         catch (Exception ex)
@@ -65,7 +64,7 @@ public class AlarmRepository : IAlarmRepository
         }
     }
 
-    public async Task<ServiceResponse> UpdateAlarm(Alarm alarmDto)
+    public async Task<ServiceResponse> UpdateAlarmAsync(Alarm alarmDto)
     {
         try
         {
@@ -80,7 +79,7 @@ public class AlarmRepository : IAlarmRepository
         }
     }
 
-    public async Task<ServiceResponse> DeleteAlarm(int id)
+    public async Task<ServiceResponse> DeleteAlarmAsync(int id)
     {
         try
         {

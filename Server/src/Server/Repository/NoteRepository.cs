@@ -6,7 +6,7 @@ using Server.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
-using Models.DTOs;
+using Models;
 
 namespace Server.Repository;
 
@@ -21,7 +21,7 @@ public class NoteRepository : INoteRepository
         _mapper = mapper;
     }
 
-    public async Task<ServiceResponse<List<Note>>> GetNotes()
+    public async Task<ServiceResponse<List<Note>>> GetNotesAsync()
     {
         try
         {
@@ -35,7 +35,7 @@ public class NoteRepository : INoteRepository
         }
     }
 
-    public async Task<ServiceResponse<Note>> GetNote(int id)
+    public async Task<ServiceResponse<Note>> GetNoteAsync(int id)
     {
         try
         {
@@ -49,14 +49,13 @@ public class NoteRepository : INoteRepository
         }
     }
 
-    public async Task<ServiceResponse> CreateNote(Note noteDto)
+    public async Task<ServiceResponse> CreateNoteAsync(Note noteDto)
     {
         try
         {
             var note = _mapper.Map<DatabaseLayout.Models.Note>(noteDto);
             _context.Notes.Add(note);
             await _context.SaveChangesAsync();
-            noteDto.Id = note.Id;
             return new ServiceResponse();
         }
         catch (Exception ex)
@@ -65,7 +64,7 @@ public class NoteRepository : INoteRepository
         }
     }
 
-    public async Task<ServiceResponse> UpdateNote(Note noteDto)
+    public async Task<ServiceResponse> UpdateNoteAsync(Note noteDto)
     {
         try
         {
@@ -80,7 +79,7 @@ public class NoteRepository : INoteRepository
         }
     }
 
-    public async Task<ServiceResponse> DeleteNote(int id)
+    public async Task<ServiceResponse> DeleteNoteAsync(int id)
     {
         try
         {

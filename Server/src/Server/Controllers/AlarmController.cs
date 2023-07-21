@@ -10,46 +10,44 @@ namespace Server.Controllers;
 public class AlarmController : BaseController
 {
     private readonly IAlarmRepository _alarmRepository;
-    private readonly IMapper _mapper;
 
-    public AlarmController(IAlarmRepository alarmRepository, IMapper mapper)
+    public AlarmController(IAlarmRepository alarmRepository)
     {
         _alarmRepository = alarmRepository;
-        _mapper = mapper;
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAlarms()
+    public async Task<IActionResult> GetAlarmsAsync()
     {
-        var alarms = await _alarmRepository.GetAlarms();
+        var alarms = await _alarmRepository.GetAlarmsAsync();
         return ApiServiceResponse.ApiServiceResult(alarms);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetAlarm(int id)
+    public async Task<IActionResult> GetAlarmAsync(int id)
     {
-        var alarm = await _alarmRepository.GetAlarm(id);
+        var alarm = await _alarmRepository.GetAlarmAsync(id);
         return ApiServiceResponse.ApiServiceResult(alarm);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAlarm([FromBody] global::Models.DTOs.Alarm newAlarmDto)
+    public async Task<IActionResult> CreateAlarmAsync([FromBody] global::Models.Alarm newAlarmDto)
     {
-        var result = await _alarmRepository.CreateAlarm(newAlarmDto);
+        var result = await _alarmRepository.CreateAlarmAsync(newAlarmDto);
         return ApiServiceResponse.ApiServiceResult(result);
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateAlarm([FromBody] global::Models.DTOs.Alarm updatedAlarmDto)
+    public async Task<IActionResult> UpdateAlarmAsync([FromBody] global::Models.Alarm updatedAlarmDto)
     {
-        var result = await _alarmRepository.UpdateAlarm(updatedAlarmDto);
+        var result = await _alarmRepository.UpdateAlarmAsync(updatedAlarmDto);
         return ApiServiceResponse.ApiServiceResult(result);
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAlarm(int id)
+    public async Task<IActionResult> DeleteAlarmAsync(int id)
     {
-        var result = await _alarmRepository.DeleteAlarm(id);
+        var result = await _alarmRepository.DeleteAlarmAsync(id);
         return ApiServiceResponse.ApiServiceResult(result);
     }
 }

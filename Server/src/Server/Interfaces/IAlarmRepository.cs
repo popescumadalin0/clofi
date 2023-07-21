@@ -6,9 +6,9 @@ namespace Server.Interfaces;
 
 public interface IAlarmRepository
 {
-    Task<ServiceResponse<List<global::Models.DTOs.Alarm>>> GetAlarms();
-    Task<ServiceResponse<global::Models.DTOs.Alarm>> GetAlarm(int id);
-    Task<ServiceResponse> CreateAlarm(global::Models.DTOs.Alarm alarm);
-    Task<ServiceResponse> UpdateAlarm(global::Models.DTOs.Alarm alarm);
-    Task<ServiceResponse> DeleteAlarm(int id);
+    Task<ServiceResponse<List<global::Models.Alarm>>> GetAlarmsAsync();
+    Task<ServiceResponse<global::Models.Alarm>> GetAlarmAsync(int id);
+    Task<ServiceResponse> CreateAlarmAsync(global::Models.Alarm alarm);
+    Task<ServiceResponse> UpdateAlarmAsync(global::Models.Alarm alarm);
+    Task<ServiceResponse> DeleteAlarmAsync(int id);
 }

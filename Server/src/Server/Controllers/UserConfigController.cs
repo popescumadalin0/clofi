@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Server.Interfaces;
 using Server.Models;
-using Server.Repository;
 using System.Threading.Tasks;
 
 namespace Server.Controllers;
@@ -10,46 +8,44 @@ namespace Server.Controllers;
 public class UserConfigController : BaseController
 {
     private readonly IUserConfigRepository _userConfigRepository;
-    private readonly IMapper _mapper;
 
-    public UserConfigController(IUserConfigRepository userConfigRepository, IMapper mapper)
+    public UserConfigController(IUserConfigRepository userConfigRepository)
     {
         _userConfigRepository = userConfigRepository;
-        _mapper = mapper;
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetConfigs()
+    public async Task<IActionResult> GetConfigsAsync()
     {
-        var configs = await _userConfigRepository.GetConfigs();
+        var configs = await _userConfigRepository.GetConfigsAsync();
         return ApiServiceResponse.ApiServiceResult(configs);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetConfig(int id)
+    public async Task<IActionResult> GetConfigAsync(int id)
     {
-        var config = await _userConfigRepository.GetConfig(id);
+        var config = await _userConfigRepository.GetConfigAsync(id);
         return ApiServiceResponse.ApiServiceResult(config);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateConfig([FromBody] global::Models.DTOs.UserConfig newConfigDto)
+    public async Task<IActionResult> CreateConfigAsync([FromBody] global::Models.UserConfig newConfigDto)
     {
-        var result = await _userConfigRepository.CreateConfig(newConfigDto);
+        var result = await _userConfigRepository.CreateConfigAsync(newConfigDto);
         return ApiServiceResponse.ApiServiceResult(result);
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateConfig([FromBody] global::Models.DTOs.UserConfig updatedConfigDto)
+    public async Task<IActionResult> UpdateConfigAsync([FromBody] global::Models.UserConfig updatedConfigDto)
     {
-        var result = await _userConfigRepository.UpdateConfig(updatedConfigDto);
+        var result = await _userConfigRepository.UpdateConfigAsync(updatedConfigDto);
         return ApiServiceResponse.ApiServiceResult(result);
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteConfig(int id)
+    public async Task<IActionResult> DeleteConfigAsync(int id)
     {
-        var result = await _userConfigRepository.DeleteConfig(id);
+        var result = await _userConfigRepository.DeleteConfigAsync(id);
         return ApiServiceResponse.ApiServiceResult(result);
     }
 }

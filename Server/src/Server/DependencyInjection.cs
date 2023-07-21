@@ -1,5 +1,4 @@
-﻿using AutoMapperProj;
-using DatabaseLayout.Context;
+﻿using DatabaseLayout.Context;
 using Microsoft.Extensions.DependencyInjection;
 using Server.Interfaces;
 using Server.Repository;
@@ -21,12 +20,6 @@ public static class DependencyInjection
         services.AddScoped<IAssignmentRepository, AssignmentRepository>();
         services.AddScoped<IAlarmRepository, AlarmRepository>();
         services.AddScoped<IUserConfigRepository, UserConfigRepository>();
-        return services;
-    }
-
-    public static IServiceCollection AddAutoMapper(this IServiceCollection services)
-    {
-        services.AddAutoMapper(typeof(MappingProfile));
         return services;
     }
 }

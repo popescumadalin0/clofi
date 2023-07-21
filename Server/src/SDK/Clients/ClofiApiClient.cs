@@ -3,7 +3,7 @@ using SDK.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Models.DTOs;
+using Models;
 using SDK.RefitModels;
 
 namespace SDK.Clients;
@@ -23,377 +23,377 @@ public class ClofiApiClient : RefitApiClient<IClofiApi>, IClofiApiClient
         _logger = logger;
     }
 
-    public async Task<ApiResponseMessage<List<User>>> GetUsers()
+    public async Task<ApiResponseMessage<List<User>>> GetUsersAsync()
     {
         try
         {
-            var task = _apiClient.GetUsers();
+            var task = _apiClient.GetUsersAsync();
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(GetUsers)}");
+            _logger.LogError(e, $"Error executing {nameof(GetUsersAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage<User>> GetUser(int id)
+    public async Task<ApiResponseMessage<User>> GetUserAsync(int id)
     {
         try
         {
-            var task = _apiClient.GetUser(id);
+            var task = _apiClient.GetUserAsync(id);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(GetUser)}");
+            _logger.LogError(e, $"Error executing {nameof(GetUserAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage> DeleteUser(int id)
+    public async Task<ApiResponseMessage> DeleteUserAsync(int id)
     {
         try
         {
-            var task = _apiClient.DeleteUser(id);
+            var task = _apiClient.DeleteUserAsync(id);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(DeleteUser)}");
+            _logger.LogError(e, $"Error executing {nameof(DeleteUserAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage> CreateUser(User user)
+    public async Task<ApiResponseMessage> CreateUserAsync(User user)
     {
         try
         {
-            var task = _apiClient.CreateUser(user);
+            var task = _apiClient.CreateUserAsync(user);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(CreateUser)}");
+            _logger.LogError(e, $"Error executing {nameof(CreateUserAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage> UpdateUser(User user)
+    public async Task<ApiResponseMessage> UpdateUserAsync(User user)
     {
         try
         {
-            var task = _apiClient.UpdateUser(user);
+            var task = _apiClient.UpdateUserAsync(user);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(UpdateUser)}");
+            _logger.LogError(e, $"Error executing {nameof(UpdateUserAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage<List<Alarm>>> GetAlarms()
+    public async Task<ApiResponseMessage<List<Alarm>>> GetAlarmsAsync()
     {
         try
         {
-            var task = _apiClient.GetAlarms();
+            var task = _apiClient.GetAlarmsAsync();
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(GetAlarms)}");
+            _logger.LogError(e, $"Error executing {nameof(GetAlarmsAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage<Alarm>> GetAlarm(int id)
+    public async Task<ApiResponseMessage<Alarm>> GetAlarmAsync(int id)
     {
         try
         {
-            var task = _apiClient.GetAlarm(id);
+            var task = _apiClient.GetAlarmAsync(id);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(GetAlarm)}");
+            _logger.LogError(e, $"Error executing {nameof(GetAlarmAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage> CreateAlarm(Alarm alarm)
+    public async Task<ApiResponseMessage> CreateAlarmAsync(Alarm alarm)
     {
         try
         {
-            var task = _apiClient.CreateAlarm(alarm);
+            var task = _apiClient.CreateAlarmAsync(alarm);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(CreateAlarm)}");
+            _logger.LogError(e, $"Error executing {nameof(CreateAlarmAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage> UpdateAlarm(Alarm alarm)
+    public async Task<ApiResponseMessage> UpdateAlarmAsync(Alarm alarm)
     {
         try
         {
-            var task = _apiClient.UpdateAlarm(alarm);
+            var task = _apiClient.UpdateAlarmAsync(alarm);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(UpdateAlarm)}");
+            _logger.LogError(e, $"Error executing {nameof(UpdateAlarmAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage> DeleteAlarm(int id)
+    public async Task<ApiResponseMessage> DeleteAlarmAsync(int id)
     {
         try
         {
-            var task = _apiClient.DeleteAlarm(id);
+            var task = _apiClient.DeleteAlarmAsync(id);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(DeleteAlarm)}");
+            _logger.LogError(e, $"Error executing {nameof(DeleteAlarmAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage<List<Assignment>>> GetAssignments()
+    public async Task<ApiResponseMessage<List<Assignment>>> GetAssignmentsAsync()
     {
         try
         {
-            var task = _apiClient.GetAssignments();
+            var task = _apiClient.GetAssignmentsAsync();
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(GetAssignments)}");
+            _logger.LogError(e, $"Error executing {nameof(GetAssignmentsAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage<Assignment>> GetAssignment(int id)
+    public async Task<ApiResponseMessage<Assignment>> GetAssignmentAsync(int id)
     {
         try
         {
-            var task = _apiClient.GetAssignment(id);
+            var task = _apiClient.GetAssignmentAsync(id);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(GetAssignment)}");
+            _logger.LogError(e, $"Error executing {nameof(GetAssignmentAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage> CreateAssignment(Assignment assignment)
+    public async Task<ApiResponseMessage> CreateAssignmentAsync(Assignment assignment)
     {
         try
         {
-            var task = _apiClient.CreateAssignment(assignment);
+            var task = _apiClient.CreateAssignmentAsync(assignment);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(CreateAssignment)}");
+            _logger.LogError(e, $"Error executing {nameof(CreateAssignmentAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage> UpdateAssignment(Assignment assignment)
+    public async Task<ApiResponseMessage> UpdateAssignmentAsync(Assignment assignment)
     {
         try
         {
-            var task = _apiClient.UpdateAssignment(assignment);
+            var task = _apiClient.UpdateAssignmentAsync(assignment);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(UpdateAssignment)}");
+            _logger.LogError(e, $"Error executing {nameof(UpdateAssignmentAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage> DeleteAssignment(int id)
+    public async Task<ApiResponseMessage> DeleteAssignmentAsync(int id)
     {
         try
         {
-            var task = _apiClient.DeleteAssignment(id);
+            var task = _apiClient.DeleteAssignmentAsync(id);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(DeleteAssignment)}");
+            _logger.LogError(e, $"Error executing {nameof(DeleteAssignmentAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage<List<Note>>> GetNotes()
+    public async Task<ApiResponseMessage<List<Note>>> GetNotesAsync()
     {
         try
         {
-            var task = _apiClient.GetNotes();
+            var task = _apiClient.GetNotesAsync();
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(GetNotes)}");
+            _logger.LogError(e, $"Error executing {nameof(GetNotesAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage<Note>> GetNote(int id)
+    public async Task<ApiResponseMessage<Note>> GetNoteAsync(int id)
     {
         try
         {
-            var task = _apiClient.GetNote(id);
+            var task = _apiClient.GetNoteAsync(id);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(GetNote)}");
+            _logger.LogError(e, $"Error executing {nameof(GetNoteAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage> CreateNote(Note note)
+    public async Task<ApiResponseMessage> CreateNoteAsync(Note note)
     {
         try
         {
-            var task = _apiClient.CreateNote(note);
+            var task = _apiClient.CreateNoteAsync(note);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(CreateNote)}");
+            _logger.LogError(e, $"Error executing {nameof(CreateNoteAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage> UpdateNote(Note note)
+    public async Task<ApiResponseMessage> UpdateNoteAsync(Note note)
     {
         try
         {
-            var task = _apiClient.UpdateNote(note);
+            var task = _apiClient.UpdateNoteAsync(note);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(UpdateNote)}");
+            _logger.LogError(e, $"Error executing {nameof(UpdateNoteAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage> DeleteNote(int id)
+    public async Task<ApiResponseMessage> DeleteNoteAsync(int id)
     {
         try
         {
-            var task = _apiClient.DeleteNote(id);
+            var task = _apiClient.DeleteNoteAsync(id);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(DeleteNote)}");
+            _logger.LogError(e, $"Error executing {nameof(DeleteNoteAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage<List<UserConfig>>> GetConfigs()
+    public async Task<ApiResponseMessage<List<UserConfig>>> GetConfigsAsync()
     {
         try
         {
-            var task = _apiClient.GetConfigs();
+            var task = _apiClient.GetConfigsAsync();
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(GetConfigs)}");
+            _logger.LogError(e, $"Error executing {nameof(GetConfigsAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage<UserConfig>> GetConfig(int id)
+    public async Task<ApiResponseMessage<UserConfig>> GetConfigAsync(int id)
     {
         try
         {
-            var task = _apiClient.GetConfig(id);
+            var task = _apiClient.GetConfigAsync(id);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(GetConfig)}");
+            _logger.LogError(e, $"Error executing {nameof(GetConfigAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage> CreateConfig(UserConfig config)
+    public async Task<ApiResponseMessage> CreateConfigAsync(UserConfig config)
     {
         try
         {
-            var task = _apiClient.CreateConfig(config);
+            var task = _apiClient.CreateConfigAsync(config);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(CreateConfig)}");
+            _logger.LogError(e, $"Error executing {nameof(CreateConfigAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage> UpdateConfig(UserConfig config)
+    public async Task<ApiResponseMessage> UpdateConfigAsync(UserConfig config)
     {
         try
         {
-            var task = _apiClient.UpdateConfig(config);
+            var task = _apiClient.UpdateConfigAsync(config);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(UpdateConfig)}");
+            _logger.LogError(e, $"Error executing {nameof(UpdateConfigAsync)}");
             throw;
         }
     }
 
-    public async Task<ApiResponseMessage> DeleteConfig(int id)
+    public async Task<ApiResponseMessage> DeleteConfigAsync(int id)
     {
         try
         {
-            var task = _apiClient.DeleteConfig(id);
+            var task = _apiClient.DeleteConfigAsync(id);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(DeleteConfig)}");
+            _logger.LogError(e, $"Error executing {nameof(DeleteConfigAsync)}");
             throw;
         }
     }

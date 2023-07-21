@@ -6,7 +6,7 @@ using Server.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
-using Models.DTOs;
+using Models;
 
 namespace Server.Repository;
 
@@ -21,7 +21,7 @@ public class AssignmentRepository : IAssignmentRepository
         _mapper = mapper;
     }
 
-    public async Task<ServiceResponse<List<Assignment>>> GetAssignments()
+    public async Task<ServiceResponse<List<Assignment>>> GetAssignmentsAsync()
     {
         try
         {
@@ -35,7 +35,7 @@ public class AssignmentRepository : IAssignmentRepository
         }
     }
 
-    public async Task<ServiceResponse<Assignment>> GetAssignment(int id)
+    public async Task<ServiceResponse<Assignment>> GetAssignmentAsync(int id)
     {
         try
         {
@@ -49,14 +49,13 @@ public class AssignmentRepository : IAssignmentRepository
         }
     }
 
-    public async Task<ServiceResponse> CreateAssignment(Assignment assignmentDto)
+    public async Task<ServiceResponse> CreateAssignmentAsync(Assignment assignmentDto)
     {
         try
         {
             var assignment = _mapper.Map<DatabaseLayout.Models.Assignment>(assignmentDto);
             _context.Assignments.Add(assignment);
             await _context.SaveChangesAsync();
-            assignmentDto.Id = assignment.Id;
             return new ServiceResponse();
         }
         catch (Exception ex)
@@ -65,7 +64,7 @@ public class AssignmentRepository : IAssignmentRepository
         }
     }
 
-    public async Task<ServiceResponse> UpdateAssignment(Assignment assignmentDto)
+    public async Task<ServiceResponse> UpdateAssignmentAsync(Assignment assignmentDto)
     {
         try
         {
@@ -80,7 +79,7 @@ public class AssignmentRepository : IAssignmentRepository
         }
     }
 
-    public async Task<ServiceResponse> DeleteAssignment(int id)
+    public async Task<ServiceResponse> DeleteAssignmentAsync(int id)
     {
         try
         {

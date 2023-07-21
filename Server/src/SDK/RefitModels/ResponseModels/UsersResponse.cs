@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Models.DTOs;
+using Models;
 
 namespace SDK.RefitModels.ResponseModels;
 

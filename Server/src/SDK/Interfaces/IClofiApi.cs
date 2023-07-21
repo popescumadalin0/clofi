@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Models.DTOs;
+using Models;
 using Refit;
 using SDK.RefitModels.ResponseModels;
 
@@ -13,81 +13,81 @@ namespace SDK.Interfaces;
 public interface IClofiApi
 {
     [Get("/api/User")]
-    Task<List<User>> GetUsers();
+    Task<List<User>> GetUsersAsync();
 
     [Get("/api/User/{id}")]
-    Task<User> GetUser(int id);
+    Task<User> GetUserAsync(int id);
 
     [Delete("/api/User/{id}")]
-    Task DeleteUser(int id);
+    Task DeleteUserAsync(int id);
 
     [Post("/api/User")]
-    Task CreateUser(User user);
+    Task CreateUserAsync(User user);
 
     [Put("/api/User")]
-    Task UpdateUser(User user);
+    Task UpdateUserAsync(User user);
 
 
     [Get("/api/Alarm")]
-    Task<List<Alarm>> GetAlarms();
+    Task<List<Alarm>> GetAlarmsAsync();
 
     [Get("/api/Alarm/{id}")]
-    Task<Alarm> GetAlarm(int id);
+    Task<Alarm> GetAlarmAsync(int id);
 
     [Post("/api/Alarm")]
-    Task CreateAlarm(Alarm alarm);
+    Task CreateAlarmAsync(Alarm alarm);
 
     [Put("/api/Alarm")]
-    Task UpdateAlarm(Alarm alarm);
+    Task UpdateAlarmAsync(Alarm alarm);
 
     [Delete("/api/Alarm/{id}")]
-    Task DeleteAlarm(int id);
+    Task DeleteAlarmAsync(int id);
 
 
     [Get("/api/Assignment")]
-    Task<List<Assignment>> GetAssignments();
+    Task<List<Assignment>> GetAssignmentsAsync();
 
     [Get("/api/Assignment/{id}")]
-    Task<Assignment> GetAssignment(int id);
+    Task<Assignment> GetAssignmentAsync(int id);
 
     [Post("/api/Assignment")]
-    Task CreateAssignment(Assignment assignment);
+    Task CreateAssignmentAsync(Assignment assignment);
 
     [Put("/api/Assignment")]
-    Task UpdateAssignment(Assignment assignment);
+    Task UpdateAssignmentAsync(Assignment assignment);
 
     [Delete("/api/Assignment/{id}")]
-    Task DeleteAssignment(int id);
+    Task DeleteAssignmentAsync(int id);
 
 
     [Get("/api/Note")]
-    Task<List<Note>> GetNotes();
+    Task<List<Note>> GetNotesAsync();
 
     [Get("/api/Note/{id}")]
-    Task<Note> GetNote(int id);
+    Task<Note> GetNoteAsync(int id);
 
     [Post("/api/Note")]
-    Task CreateNote(Note note);
+    Task CreateNoteAsync(Note note);
 
     [Put("/api/Note")]
-    Task UpdateNote(Note note);
+    Task UpdateNoteAsync(Note note);
 
     [Delete("/api/Note/{id}")]
-    Task DeleteNote(int id);
+    Task DeleteNoteAsync(int id);
 
 
     [Get("/api/UserConfig")]
-    Task<List<UserConfig>> GetConfigs();
+    Task<List<UserConfig>> GetConfigsAsync();
 
     [Get("/api/UserConfig/{id}")]
-    Task<UserConfig> GetConfig(int id);
+    Task<UserConfig> GetConfigAsync(int id);
 
     [Post("/api/UserConfig")]
-    Task CreateConfig(UserConfig config);
+    Task CreateConfigAsync(UserConfig config);
 
     [Put("/api/UserConfig")]
-    Task UpdateConfig(UserConfig config);
+    Task UpdateConfigAsync(UserConfig config);
 
     [Delete("/api/UserConfig/{id}")]
-    Task DeleteConfig(int id);
+    Task DeleteConfigAsync(int id);
 }

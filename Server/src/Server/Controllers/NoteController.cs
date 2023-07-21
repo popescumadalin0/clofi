@@ -10,46 +10,44 @@ namespace Server.Controllers;
 public class NoteController : BaseController
 {
     private readonly INoteRepository _noteRepository;
-    private readonly IMapper _mapper;
 
-    public NoteController(INoteRepository noteRepository, IMapper mapper)
+    public NoteController(INoteRepository noteRepository)
     {
         _noteRepository = noteRepository;
-        _mapper = mapper;
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetNotes()
+    public async Task<IActionResult> GetNotesAsync()
     {
-        var notes = await _noteRepository.GetNotes();
+        var notes = await _noteRepository.GetNotesAsync();
         return ApiServiceResponse.ApiServiceResult(notes);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetNote(int id)
+    public async Task<IActionResult> GetNoteAsync(int id)
     {
-        var note = await _noteRepository.GetNote(id);
+        var note = await _noteRepository.GetNoteAsync(id);
         return ApiServiceResponse.ApiServiceResult(note);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateNote([FromBody] global::Models.DTOs.Note newNoteDto)
+    public async Task<IActionResult> CreateNoteAsync([FromBody] global::Models.Note newNoteDto)
     {
-        var result = await _noteRepository.CreateNote(newNoteDto);
+        var result = await _noteRepository.CreateNoteAsync(newNoteDto);
         return ApiServiceResponse.ApiServiceResult(result);
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateNote([FromBody] global::Models.DTOs.Note updatedNoteDto)
+    public async Task<IActionResult> UpdateNoteAsync([FromBody] global::Models.Note updatedNoteDto)
     {
-        var result = await _noteRepository.UpdateNote(updatedNoteDto);
+        var result = await _noteRepository.UpdateNoteAsync(updatedNoteDto);
         return ApiServiceResponse.ApiServiceResult(result);
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteNote(int id)
+    public async Task<IActionResult> DeleteNoteAsync(int id)
     {
-        var result = await _noteRepository.DeleteNote(id);
+        var result = await _noteRepository.DeleteNoteAsync(id);
         return ApiServiceResponse.ApiServiceResult(result);
     }
 }
