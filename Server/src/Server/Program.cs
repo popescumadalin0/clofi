@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using DatabaseLayout.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -8,54 +10,75 @@ using Server;
 using Services;
 
 var builder = WebApplication.CreateBuilder(args);
+const string myAllowSpecificOrigins = "_AllowSpecificOrigins";
 
-// Add services to the container.
+ConfigBuilder();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+ConfigServices();
 
-builder.Services.AddDbContext<ClofiContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+ConfigCors();
 
-builder.Services.AddServices();
-builder.Services.AddRepositories();
-builder.Services.AddAutoMapper();
+RunApp();
 
-
-var myAllowSpecificOrigins = "_AllowSpecificOrigins";
-builder.Services.AddCors(options =>
-    {
-        options.AddPolicy(myAllowSpecificOrigins, policy =>
-        {
-            policy.AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
-    }
-);
-
-builder.Services.AddControllers();
-
-var app = builder.Build();
-
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+void ConfigBuilder()
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var config = new ConfigurationBuilder()
+        .SetBasePath(Directory.GetCurrentDirectory())
+#if DEBUG
+        .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: false).Build();
+#else
+        .AddJsonFile("appsettings.json", optional: false).Build();
+#endif
+    builder.Configuration.AddConfiguration(config);
 }
 
-app.UseHttpsRedirection();
+void ConfigServices()
+{
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
 
-app.UseRouting();
+    builder.Services.AddDbContext<ClofiContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-app.UseCors(myAllowSpecificOrigins);
+    builder.Services.AddServices();
+    builder.Services.AddRepositories();
+    builder.Services.AddAutoMapper();
+    builder.Services.AddControllers();
+}
 
-app.UseAuthorization();
+void ConfigCors()
+{
+    builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(myAllowSpecificOrigins, policy =>
+            {
+                policy.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
+        }
+    );
+}
 
-app.MapControllers();
+void RunApp()
+{
+    var app = builder.Build();
 
-app.Run();
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    app.UseHttpsRedirection();
+
+    app.UseRouting();
+
+    app.UseCors(myAllowSpecificOrigins);
+
+    app.UseAuthorization();
+
+    app.MapControllers();
+
+    app.Run();
+}
