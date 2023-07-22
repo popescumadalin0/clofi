@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Models.DTOs;
 using Refit;
-using SDK.RefitModels.ResponseModels;
 
 namespace SDK.Interfaces;
 

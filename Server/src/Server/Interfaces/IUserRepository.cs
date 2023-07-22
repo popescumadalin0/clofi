@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Server.Models;
+using User = Models.DTOs.User;
 
 namespace Server.Interfaces;
 
 public interface IUserRepository
 {
-    Task<ServiceResponse<List<global::Models.DTOs.User>>> GetUsers();
-    Task<ServiceResponse<global::Models.DTOs.User>> GetUser(int id);
-    Task<ServiceResponse> CreateUser(global::Models.DTOs.User user);
-    Task<ServiceResponse> UpdateUser(global::Models.DTOs.User userDto);
+    Task<ServiceResponse<List<User>>> GetUsers();
+    Task<ServiceResponse<User>> GetUser(int id);
+    Task<ServiceResponse> CreateUser(User user);
+    Task<ServiceResponse> UpdateUser(User userDto);
     Task<ServiceResponse> DeleteUser(int id);
 }
