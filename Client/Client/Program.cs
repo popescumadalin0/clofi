@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using Client;
-using Client.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +31,6 @@ void ConfigServices()
 {
     builder.Services.AddRazorPages();
     builder.Services.AddServerSideBlazor();
-    builder.Services.AddSingleton<WeatherForecastService>();
 
     builder.Services.AddClofiApiClient(new Uri(builder.Configuration.GetConnectionString("ClofiApiSdk")));
     builder.Services.AddServices();
