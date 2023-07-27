@@ -402,7 +402,7 @@ public class ClofiApiClient : RefitApiClient<IClofiApi>, IClofiApiClient
     {
         try
         {
-            var task = _apiClient.GetUser(id);
+            var task = _apiClient.GetUserAsync(id);
             var result = await Execute(task);
             return result;
         }
@@ -417,7 +417,7 @@ public class ClofiApiClient : RefitApiClient<IClofiApi>, IClofiApiClient
     {
         try
         {
-            var task = _apiClient.DeleteUser(id);
+            var task = _apiClient.DeleteUserAsync(id);
             var result = await Execute(task);
             return result;
         }
@@ -432,7 +432,7 @@ public class ClofiApiClient : RefitApiClient<IClofiApi>, IClofiApiClient
     {
         try
         {
-            var task = _apiClient.CreateUser(user);
+            var task = _apiClient.CreateUserAsync(user);
             var result = await Execute(task);
             return result;
         }
@@ -447,7 +447,7 @@ public class ClofiApiClient : RefitApiClient<IClofiApi>, IClofiApiClient
     {
         try
         {
-            var task = _apiClient.UpdateUser(user);
+            var task = _apiClient.UpdateUserAsync(user);
             var result = await Execute(task);
             return result;
         }

@@ -6,6 +6,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Folder Include="DTOs\" />
 		<Folder Include="Enums\" />
 	</ItemGroup>
 
