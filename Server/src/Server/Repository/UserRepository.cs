@@ -56,6 +56,7 @@ public class UserRepository : IUserRepository
             var user = _mapper.Map<DatabaseLayout.Models.User>(userDto);
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
+            userDto.Id = user.Id;
             return new ServiceResponse();
         }
         catch (Exception ex)

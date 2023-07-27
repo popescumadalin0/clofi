@@ -397,4 +397,64 @@ public class ClofiApiClient : RefitApiClient<IClofiApi>, IClofiApiClient
             throw;
         }
     }
+
+    public async Task<ApiResponseMessage<User>> GetUser(int id)
+    {
+        try
+        {
+            var task = _apiClient.GetUser(id);
+            var result = await Execute(task);
+            return result;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Error executing {nameof(GetUser)}");
+            throw;
+        }
+    }
+
+    public async Task<ApiResponseMessage> DeleteUser(int id)
+    {
+        try
+        {
+            var task = _apiClient.DeleteUser(id);
+            var result = await Execute(task);
+            return result;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Error executing {nameof(DeleteUser)}");
+            throw;
+        }
+    }
+
+    public async Task<ApiResponseMessage> CreateUser(User user)
+    {
+        try
+        {
+            var task = _apiClient.CreateUser(user);
+            var result = await Execute(task);
+            return result;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Error executing {nameof(CreateUser)}");
+            throw;
+        }
+    }
+
+    public async Task<ApiResponseMessage> UpdateUser(User user)
+    {
+        try
+        {
+            var task = _apiClient.UpdateUser(user);
+            var result = await Execute(task);
+            return result;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Error executing {nameof(UpdateUser)}");
+            throw;
+        }
+    }
 }

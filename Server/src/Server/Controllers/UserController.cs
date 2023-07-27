@@ -10,10 +10,12 @@ namespace Server.Controllers;
 public class UserController : BaseController
 {
     private readonly IUserRepository _userRepository;
+    private readonly IMapper _mapper;
 
     public UserController(IUserRepository userRepository)
     {
         _userRepository = userRepository;
+        _mapper = mapper;
     }
 
     [HttpGet]
