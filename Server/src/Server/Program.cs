@@ -1,4 +1,3 @@
-using System;
 using DatabaseLayout.Context;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -25,9 +24,6 @@ builder.Services.AddDbContext<ClofiContext>(options =>
 builder.Services.AddServices();
 builder.Services.AddRepositories();
 builder.Services.AddAutoMapper();
-builder.Services.AddToken();
-builder.Services.AddRefreshToken();
-builder.Services.AddUserRepository();
 
 
 var myAllowSpecificOrigins = "_AllowSpecificOrigins";
@@ -46,15 +42,14 @@ builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 }).AddCookie(options =>
 {
     options.Cookie.HttpOnly = true;
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(3);
-    options.SlidingExpiration = true;
+    options.SlidingExpiration = false;
     options.AccessDeniedPath = "/Forbidden/";
 });
-
-
+builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
 

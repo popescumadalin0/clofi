@@ -1,73 +1,54 @@
-﻿using DatabaseLayout.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using Services.Interfaces;
 using SDK.Models;
-using System.IdentityModel.Tokens.Jwt;
 using Server.Interfaces;
+using Services.Interfaces;
 
 
 namespace Server.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class TokenController : BaseController
     {
         private readonly ITokenService _tokenService;
-        private readonly IRefreshTokenService _refreshTokenService;
         private readonly IUserRepository _userRepository;
+        private readonly ICookieService _cookieService;
 
-        public TokenController(ITokenService tokenService, IRefreshTokenService refreshTokenService, IUserRepository userRepository)
+        public TokenController(ITokenService tokenService, IUserRepository userRepository,
+            ICookieService cookieService)
         {
             _tokenService = tokenService;
-            _refreshTokenService = refreshTokenService;
             _userRepository = userRepository;
+            _cookieService = cookieService;
         }
 
         [HttpPost("refresh-token")]
-
-        public ActionResult<UserLoginResponse> RefreshToken(UserLoginRequest request)
+        public IActionResult RefreshToken(UserLoginResponse request)
         {
-            var token = Request.Cookies["token"];
-            var refreshToken = Request.Cookies["refreshToken"];
-
-            JwtSecurityToken tokenRequest = _tokenService.GenerateToken(request);
-            JwtSecurityToken refreshTokenRequest = _refreshTokenService.GenerateRefreshToken(request);
-
-            if (_tokenService.IsValidToken(token) && _refreshTokenService.IsValidRefreshToken(refreshToken))
+            if (_tokenService.IsValidToken(request.RefreshToken) &&
+                (_tokenService.IsValidToken(request.Token) == false))
             {
-                var responseLogin = _userRepository.LoginUser(request);
-                if (responseLogin.Result.Success.Equals(false))
-                    return BadRequest("Something when wrong");
-                return Ok("User " + request.Username + " is now logged");
+                var newToken = _tokenService.GenerateToken(request.Username, 2);
+                var newRefreshToken = _tokenService.GenerateToken(request.Username,
+                    _tokenService.GetExpirationTimeFromJwtInMinutes(request.RefreshToken));
 
+                _cookieService.SetCookie("token", newToken,
+                    _tokenService.GetExpirationTimeFromJwtInMinutes(newToken));
+
+                _cookieService.SetCookie("refreshToken", newRefreshToken,
+                    _tokenService.GetExpirationTimeFromJwtInMinutes(newRefreshToken));
+
+                return new JsonResult(new { message = "Your session has been refreshed" });
             }
-            if (!_tokenService.IsValidToken(token) && _refreshTokenService.IsValidRefreshToken(refreshToken))
+
+            if (!_tokenService.IsValidToken(request.RefreshToken))
             {
-
-                var newToken = _tokenService.GenerateToken(request);
-                var securityToken = new JwtSecurityTokenHandler().WriteToken(newToken);
-
-
-                Response.Cookies.Append("token", securityToken, new CookieOptions
+                return new JsonResult(new { message = "Your session has expired" })
                 {
-                    HttpOnly = true,
-                    Expires = DateTime.UtcNow.AddMinutes(5)
-                });
-
-                return Ok("Your loginToken has been refreshed");
-            }
-            if (!_refreshTokenService.IsValidRefreshToken(refreshToken))
-            {
-                return Ok("You session has expire, please login");
+                    StatusCode = StatusCodes.Status401Unauthorized
+                };
             }
 
-            return Unauthorized();
-
-
+            return new JsonResult(new { message = "Your tokens are still active" });
         }
-
-
     }
 }

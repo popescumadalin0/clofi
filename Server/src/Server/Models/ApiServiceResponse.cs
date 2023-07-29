@@ -1,6 +1,6 @@
-﻿using System.Net;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Net.Mime;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Server.Models;
 

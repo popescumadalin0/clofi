@@ -1,11 +1,8 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿namespace SDK.Models;
 
-namespace SDK.Models
+public class UserLoginResponse
 {
-    public class UserLoginResponse
-    {
-        public string Username { get; set; } = string.Empty;
-        public JwtSecurityToken Token { get; set; }
-        public JwtSecurityToken RefreshToken { get; set; }
-    }
+    public string Username { get; set; }
+    public string Token { get; set; }
+    public string RefreshToken { get; set; }
 }

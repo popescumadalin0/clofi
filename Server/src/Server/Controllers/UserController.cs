@@ -1,17 +1,17 @@
-﻿using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using DatabaseLayout.Context;
 using DatabaseLayout.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using SDK.Models;
 using Server.Interfaces;
 using Server.Models;
+using Services;
+using Services.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 
 namespace Server.Controllers
@@ -21,15 +21,21 @@ namespace Server.Controllers
         private readonly IClofiContext _clofiContext;
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
+        private readonly ICookieService _cookieService;
+        private readonly ITokenService _tokenService;
 
-        public UserController(IClofiContext context, IMapper mapper, IUserRepository userRepository)
+        public UserController(IClofiContext context, IMapper mapper, IUserRepository userRepository,
+            ICookieService cookieService, ITokenService tokenService)
         {
             _clofiContext = context;
             _mapper = mapper;
             _userRepository = userRepository;
+            _cookieService = cookieService;
+            _tokenService = tokenService;
         }
 
         [HttpGet]
+        [JwtAuth]
         public async Task<IActionResult> GetUsers()
         {
             _ = await _clofiContext.Users.AddAsync(new User()
@@ -46,10 +52,8 @@ namespace Server.Controllers
         }
 
         [HttpPost("Register")]
-
         public async Task<ActionResult<User>> Register(UserRegisterRequest request)
         {
-
             var checkUsername = await _clofiContext.Users.Where(u => u.Username == request.Username).ToListAsync();
 
             if (checkUsername.Count > 0)
@@ -59,49 +63,34 @@ namespace Server.Controllers
 
             var user = new User()
             {
-                Description = "register user",
-                Name = "test register",
                 Username = request.Username,
                 Password = request.Password,
+                Name = request.Name,
+                Description = request.Description,
             };
 
-            var response = _userRepository.AddUser(user);
+            var response = await _userRepository.AddUser(user);
 
-            if (response.Result.Success)
+            if (response.Success)
                 return Ok(user);
             return BadRequest("Error ");
         }
 
 
         [HttpPost("Login")]
-
-        public async Task<ActionResult<string>> Login(UserLoginRequest request)
+        public async Task<ActionResult<UserLoginResponse>> Login(UserLoginRequest request)
         {
-
-            var responseLogin = _userRepository.LoginUser(request);
-            if (responseLogin.Result.Success.Equals(false))
+            var responseLogin = await _userRepository.LoginUser(request);
+            if (responseLogin.Success.Equals(false))
                 return BadRequest("Something when wrong");
-            var token = responseLogin.Result.Response.Token;
-            var refreshToken = responseLogin.Result.Response.RefreshToken;
+            var token = responseLogin.Response.Token;
+            var refreshToken = responseLogin.Response.RefreshToken;
 
-            var TokenKey = new JwtSecurityTokenHandler().WriteToken(token);
-            var RefreshTokenKey = new JwtSecurityTokenHandler().WriteToken(refreshToken);
+            _cookieService.SetCookie("token", token, _tokenService.GetExpirationTimeFromJwtInMinutes(token));
+            _cookieService.SetCookie("refreshToken", refreshToken,
+                _tokenService.GetExpirationTimeFromJwtInMinutes(refreshToken));
 
-            var cookieOptionsToken = new CookieOptions
-            {
-                HttpOnly = true,
-                Expires = token.ValidTo
-            };
-            Response.Cookies.Append("token", TokenKey, cookieOptionsToken);
-
-            var cookieOptionsRefreshToken = new CookieOptions
-            {
-                HttpOnly = true,
-                Expires = refreshToken.ValidTo
-            };
-            Response.Cookies.Append("refreshToken", RefreshTokenKey, cookieOptionsRefreshToken);
-
-            return Ok("User " + request.Username + " is now logged");
+            return Ok(responseLogin.Response);
         }
     }
 }
