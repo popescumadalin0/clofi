@@ -1,16 +1,17 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Services;
+namespace AutoMapperProj;
 
 public static class DependencyInjection
 {
     /// <summary>
-    /// Add all dependencies from Server project.
+    /// Add all dependencies from AutoMapper project.
     /// </summary>
     /// <param name="services">Services.</param>
     /// <returns></returns>
-    public static IServiceCollection AddServices(this IServiceCollection services)
+    public static IServiceCollection AddAutoMapperDependencies(this IServiceCollection services)
     {
+        services.AddAutoMapper(typeof(MappingProfile));
         return services;
     }
 }

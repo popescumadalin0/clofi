@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Server.Models;
-using User = Models.DTOs.User;
+using User = Models.User;
 
 namespace Server.Interfaces;
 
 public interface IUserRepository
 {
-    Task<ServiceResponse<List<User>>> GetUsers();
-    Task<ServiceResponse<User>> GetUser(int id);
-    Task<ServiceResponse> CreateUser(User user);
-    Task<ServiceResponse> UpdateUser(User userDto);
-    Task<ServiceResponse> DeleteUser(int id);
+    Task<ServiceResponse<List<User>>> GetUsersAsync();
+    Task<ServiceResponse<User>> GetUserAsync(int id);
+    Task<ServiceResponse> CreateUserAsync(User user);
+    Task<ServiceResponse> UpdateUserAsync(User userDto);
+    Task<ServiceResponse> DeleteUserAsync(int id);
 }

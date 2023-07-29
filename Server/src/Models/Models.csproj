@@ -6,7 +6,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Folder Include="DTOs\" />
 		<Folder Include="Enums\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 	</ItemGroup>
 
 </Project>

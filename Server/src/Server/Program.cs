@@ -1,4 +1,5 @@
 using System.IO;
+using AutoMapperProj;
 using DatabaseLayout.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -41,7 +42,7 @@ void ConfigServices()
 
     builder.Services.AddServices();
     builder.Services.AddRepositories();
-    builder.Services.AddAutoMapper();
+    builder.Services.AddAutoMapperDependencies();
     builder.Services.AddControllers();
 }
 
