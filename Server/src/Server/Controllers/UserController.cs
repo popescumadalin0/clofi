@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata;
+using Models;
 using Server.Interfaces;
 using Server.Models;
 
@@ -31,14 +31,14 @@ public class UserController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateUserAsync([FromBody] global::Models.User newUserDto)
+    public async Task<IActionResult> CreateUserAsync([FromBody] User newUserDto)
     {
         var result = await _userRepository.CreateUserAsync(newUserDto);
         return ApiServiceResponse.ApiServiceResult(result);
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateUserAsync([FromBody] global::Models.User updatedUserDto)
+    public async Task<IActionResult> UpdateUserAsync([FromBody] User updatedUserDto)
     {
         var result = await _userRepository.UpdateUserAsync(updatedUserDto);
         return ApiServiceResponse.ApiServiceResult(result);

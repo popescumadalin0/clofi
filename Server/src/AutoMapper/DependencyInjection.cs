@@ -9,7 +9,7 @@ public static class DependencyInjection
     /// </summary>
     /// <param name="services">Services.</param>
     /// <returns></returns>
-    public static IServiceCollection AddAutoMapper(this IServiceCollection services)
+    public static IServiceCollection AddAutoMapperDependencies(this IServiceCollection services)
     {
         services.AddAutoMapper(typeof(MappingProfile));
         return services;
