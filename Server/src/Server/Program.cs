@@ -44,6 +44,8 @@ void ConfigServices()
     builder.Services.AddRepositories();
     builder.Services.AddAutoMapperDependencies();
     builder.Services.AddControllers();
+
+    builder.Services.AddLogging();
 }
 
 void ConfigCors()

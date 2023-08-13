@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Models;
-using Refit;
 using SDK.RefitModels;
-using SDK.RefitModels.ResponseModels;
 
 namespace SDK.Interfaces;
 
@@ -67,7 +64,7 @@ public interface IClofiApiClient
     /// </summary>
     /// <returns></returns>
     Task<ApiResponseMessage> UpdateAlarmAsync(Alarm alarm);
-    
+
     /// <summary>
     /// Delete alarm.
     /// </summary>
