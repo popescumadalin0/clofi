@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DatabaseLayout.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Models;
 using Server.Interfaces;
 using Server.Models;
@@ -14,11 +15,13 @@ public class UserRepository : IUserRepository
 {
     private readonly IClofiContext _context;
     private readonly IMapper _mapper;
+    private readonly ILogger<UserRepository> _logger;
 
-    public UserRepository(IClofiContext context, IMapper mapper)
+    public UserRepository(IClofiContext context, IMapper mapper, ILogger<UserRepository> logger)
     {
         _context = context;
         _mapper = mapper;
+        _logger = logger;
     }
 
     public async Task<ServiceResponse<List<User>>> GetUsersAsync()
@@ -31,6 +34,7 @@ public class UserRepository : IUserRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse<List<User>>(ex);
         }
     }
@@ -45,6 +49,7 @@ public class UserRepository : IUserRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse<User>(ex);
         }
     }
@@ -61,6 +66,7 @@ public class UserRepository : IUserRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse(ex);
         }
     }
@@ -76,6 +82,7 @@ public class UserRepository : IUserRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse(ex);
         }
     }
@@ -95,8 +102,9 @@ public class UserRepository : IUserRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse(ex);
         }
-        
+
     }
 }

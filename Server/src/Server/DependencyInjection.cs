@@ -20,6 +20,7 @@ public static class DependencyInjection
         services.AddScoped<IAssignmentRepository, AssignmentRepository>();
         services.AddScoped<IAlarmRepository, AlarmRepository>();
         services.AddScoped<IUserConfigRepository, UserConfigRepository>();
+
         return services;
     }
 }

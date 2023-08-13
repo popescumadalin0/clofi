@@ -64,7 +64,7 @@ public class UserConfigController : BaseController
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteConfigAsync(int id)
     {
-        _logger.LogInformation($S"Delete user configuration: {id}");
+        _logger.LogInformation($"Delete user configuration: {id}");
         var result = await _userConfigRepository.DeleteConfigAsync(id);
         return ApiServiceResponse.ApiServiceResult(result);
     }
