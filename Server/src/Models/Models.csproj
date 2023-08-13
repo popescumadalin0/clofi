@@ -6,12 +6,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="DTOs\**" />
-	  <EmbeddedResource Remove="DTOs\**" />
-	  <None Remove="DTOs\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<Folder Include="Enums\" />
 	</ItemGroup>
 
