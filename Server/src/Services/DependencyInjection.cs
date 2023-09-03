@@ -14,8 +14,11 @@ public static class DependencyInjection
     /// <returns></returns>
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
+<<<<<<< HEAD
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<ICookieService, CookieService>();
+=======
+>>>>>>> main
         return services;
     }
 }

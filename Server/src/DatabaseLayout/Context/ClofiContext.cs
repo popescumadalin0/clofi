@@ -11,6 +11,13 @@ public class ClofiContext : DbContext, IClofiContext
         : base(options) { }
 
     public DbSet<User> Users { get; set; }
+<<<<<<< HEAD
+=======
+    public DbSet<Note> Notes { get; set; }
+    public DbSet<Assignment> Assignments { get; set; }
+    public DbSet<UserConfig> UserConfigs { get; set; }
+    public DbSet<Alarm> Alarms { get; set; }
+>>>>>>> main
 
     public async Task<int> SaveChangesAsync()
     {

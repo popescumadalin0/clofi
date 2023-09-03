@@ -5,6 +5,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Blazorise" Version="1.2.4" />
+		<PackageReference Include="Blazorise.Bootstrap" Version="1.2.4" />
+		<PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.2.4" />
 		<PackageReference Include="clofi.Server.SDK" Version="0.0.1" />
 	</ItemGroup>
 

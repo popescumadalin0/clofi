@@ -1,5 +1,4 @@
 ﻿@page "/testUserPage"
-@using SDK.Interfaces
 
 <PageTitle>Users</PageTitle>
 
@@ -9,7 +8,9 @@
     <p role="status">@a<br/></p>
 }
 
-<button class="btn btn-primary" @onclick="GetUsers">Click me</button>
+<Button class="btn btn-primary" @onclick="GetUsers">Click me</Button>
+<Button class="btn btn-primary" @onclick="CreateUser">Create</Button>
+
 
 @code {
     [Inject]
@@ -19,6 +20,18 @@
 
     private async Task GetUsers()
     {
-        _users = (await ClofiApiClient.GetUsers()).Response.Users.Select(u => u.Name).ToList();
+        _users = (await ClofiApiClient.GetUsers()).Response.Select(u => u.Email).ToList();
     }
+
+	private async Task CreateUser()
+	{
+		await ClofiApiClient.CreateUser(new User()
+		{
+			Email = "email",
+			FirstName = "sdsd",
+			LastName = "sdsd",
+			Password = "sdsds",
+			Username = "sdsd"
+		});
+	}
 }
