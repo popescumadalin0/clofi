@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using Microsoft.AspNetCore.Http;
 using Server.Interfaces;
-using System;
 
-namespace Server.Repository;
+namespace Services;
 
 public class CookieService : ICookieService
 {
@@ -15,7 +15,7 @@ public class CookieService : ICookieService
 
     public void SetCookie(string key, string value, int? expirationInMinutes)
     {
-        CookieOptions options = new CookieOptions();
+        var options = new CookieOptions();
         if (expirationInMinutes.HasValue)
         {
             options.Expires = DateTime.UtcNow.AddMinutes(expirationInMinutes.Value);
@@ -23,15 +23,5 @@ public class CookieService : ICookieService
 
         options.HttpOnly = true;
         _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value, options);
-    }
-
-    public string GetCookie(string key)
-    {
-        return _httpContextAccessor.HttpContext.Request.Cookies[key];
-    }
-
-    public void DeleteCookie(string key)
-    {
-        _httpContextAccessor.HttpContext.Response.Cookies.Delete(key);
     }
 }

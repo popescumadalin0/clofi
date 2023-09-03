@@ -12,10 +12,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-<<<<<<< HEAD
 	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.31.0" />
-=======
->>>>>>> main
 	</ItemGroup>
 
 </Project>

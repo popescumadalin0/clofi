@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Server.Interfaces;
 using Server.Models;
+using Services;
 using System.Threading.Tasks;
 
 namespace Server.Controllers;
@@ -15,6 +16,7 @@ public class UserConfigController : BaseController
     }
 
     [HttpGet]
+    [JwtAuth]
     public async Task<IActionResult> GetConfigsAsync()
     {
         var configs = await _userConfigRepository.GetConfigsAsync();
@@ -22,6 +24,7 @@ public class UserConfigController : BaseController
     }
 
     [HttpGet("{id}")]
+    [JwtAuth]
     public async Task<IActionResult> GetConfigAsync(int id)
     {
         var config = await _userConfigRepository.GetConfigAsync(id);
@@ -29,6 +32,7 @@ public class UserConfigController : BaseController
     }
 
     [HttpPost]
+    [JwtAuth]
     public async Task<IActionResult> CreateConfigAsync([FromBody] global::Models.UserConfig newConfigDto)
     {
         var result = await _userConfigRepository.CreateConfigAsync(newConfigDto);
@@ -36,6 +40,7 @@ public class UserConfigController : BaseController
     }
 
     [HttpPut]
+    [JwtAuth]
     public async Task<IActionResult> UpdateConfigAsync([FromBody] global::Models.UserConfig updatedConfigDto)
     {
         var result = await _userConfigRepository.UpdateConfigAsync(updatedConfigDto);
@@ -43,6 +48,7 @@ public class UserConfigController : BaseController
     }
 
     [HttpDelete("{id}")]
+    [JwtAuth]
     public async Task<IActionResult> DeleteConfigAsync(int id)
     {
         var result = await _userConfigRepository.DeleteConfigAsync(id);

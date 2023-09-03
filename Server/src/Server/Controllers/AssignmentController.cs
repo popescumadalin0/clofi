@@ -1,8 +1,7 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Server.Interfaces;
 using Server.Models;
-using Server.Repository;
+using Services;
 using System.Threading.Tasks;
 
 namespace Server.Controllers;
@@ -17,6 +16,7 @@ public class AssignmentController : BaseController
     }
 
     [HttpGet]
+    [JwtAuth]
     public async Task<IActionResult> GetAssignmentsAsync()
     {
         var assignments = await _assignmentRepository.GetAssignmentsAsync();
@@ -24,6 +24,7 @@ public class AssignmentController : BaseController
     }
 
     [HttpGet("{id}")]
+    [JwtAuth]
     public async Task<IActionResult> GetAssignmentAsync(int id)
     {
         var assignment = await _assignmentRepository.GetAssignmentAsync(id);
@@ -31,6 +32,7 @@ public class AssignmentController : BaseController
     }
 
     [HttpPost]
+    [JwtAuth]
     public async Task<IActionResult> CreateAssignmentAsync([FromBody] global::Models.Assignment newAssignmentDto)
     {
         var result = await _assignmentRepository.CreateAssignmentAsync(newAssignmentDto);
@@ -38,6 +40,7 @@ public class AssignmentController : BaseController
     }
 
     [HttpPut]
+    [JwtAuth]
     public async Task<IActionResult> UpdateAssignmentAsync([FromBody] global::Models.Assignment updatedAssignmentDto)
     {
         var result = await _assignmentRepository.UpdateAssignmentAsync(updatedAssignmentDto);
@@ -45,6 +48,7 @@ public class AssignmentController : BaseController
     }
 
     [HttpDelete("{id}")]
+    [JwtAuth]
     public async Task<IActionResult> DeleteAssignmentAsync(int id)
     {
         var result = await _assignmentRepository.DeleteAssignmentAsync(id);

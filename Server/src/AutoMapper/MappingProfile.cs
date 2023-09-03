@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DatabaseLayout.Models;
 using Alarm = Models.Alarm;
 using Assignment = Models.Assignment;
 using Note = Models.Note;
@@ -12,13 +11,6 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-<<<<<<< HEAD
-        public MappingProfile()
-        {
-            CreateMap<User, UserDTO>();
-            CreateMap<UserDTO, User>();
-        }
-=======
         CreateMap<User, DatabaseLayout.Models.User>();
         CreateMap<DatabaseLayout.Models.User, User>();
 
@@ -33,6 +25,5 @@ public class MappingProfile : Profile
 
         CreateMap<UserConfig, DatabaseLayout.Models.UserConfig>();
         CreateMap<DatabaseLayout.Models.UserConfig, UserConfig>();
->>>>>>> main
     }
 }

@@ -1,9 +1,8 @@
 ﻿using Server.Interfaces;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
-using Server.Repository;
 using System.Threading.Tasks;
+using Services;
 
 namespace Server.Controllers;
 
@@ -17,6 +16,7 @@ public class NoteController : BaseController
     }
 
     [HttpGet]
+    [JwtAuth]
     public async Task<IActionResult> GetNotesAsync()
     {
         var notes = await _noteRepository.GetNotesAsync();
@@ -24,6 +24,7 @@ public class NoteController : BaseController
     }
 
     [HttpGet("{id}")]
+    [JwtAuth]
     public async Task<IActionResult> GetNoteAsync(int id)
     {
         var note = await _noteRepository.GetNoteAsync(id);
@@ -31,6 +32,7 @@ public class NoteController : BaseController
     }
 
     [HttpPost]
+    [JwtAuth]
     public async Task<IActionResult> CreateNoteAsync([FromBody] global::Models.Note newNoteDto)
     {
         var result = await _noteRepository.CreateNoteAsync(newNoteDto);
@@ -38,6 +40,7 @@ public class NoteController : BaseController
     }
 
     [HttpPut]
+    [JwtAuth]
     public async Task<IActionResult> UpdateNoteAsync([FromBody] global::Models.Note updatedNoteDto)
     {
         var result = await _noteRepository.UpdateNoteAsync(updatedNoteDto);
@@ -45,6 +48,7 @@ public class NoteController : BaseController
     }
 
     [HttpDelete("{id}")]
+    [JwtAuth]
     public async Task<IActionResult> DeleteNoteAsync(int id)
     {
         var result = await _noteRepository.DeleteNoteAsync(id);

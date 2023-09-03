@@ -1,16 +1,8 @@
-<<<<<<< HEAD
-﻿using AutoMapperProj;
-using DatabaseLayout.Context;
-using Microsoft.Extensions.DependencyInjection;
-using Server.Interfaces;
-using Server.Repository;
-
-=======
 ﻿using DatabaseLayout.Context;
 using Microsoft.Extensions.DependencyInjection;
 using Server.Interfaces;
 using Server.Repository;
->>>>>>> main
+
 
 namespace Server;
 
@@ -25,20 +17,17 @@ public static class DependencyInjection
     {
         services.AddScoped<IClofiContext, ClofiContext>();
         services.AddScoped<IUserRepository, UserRepository>();
-<<<<<<< HEAD
-        services.AddHttpContextAccessor();
-        return services;
-    }
-
-    public static IServiceCollection AddAutoMapper(this IServiceCollection services)
-    {
-        services.AddAutoMapper(typeof(MappingProfile));
-=======
         services.AddScoped<INoteRepository, NoteRepository>();
         services.AddScoped<IAssignmentRepository, AssignmentRepository>();
         services.AddScoped<IAlarmRepository, AlarmRepository>();
         services.AddScoped<IUserConfigRepository, UserConfigRepository>();
->>>>>>> main
+        services.AddHttpContextAccessor();
+        return services;
+    }
+
+    public static IServiceCollection AddHttpServiceCollection(this IServiceCollection services)
+    {
+        services.AddHttpContextAccessor();
         return services;
     }
 }

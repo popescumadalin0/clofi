@@ -22,46 +22,7 @@ ConfigCors();
 
 RunApp();
 
-<<<<<<< HEAD
-
-var myAllowSpecificOrigins = "_AllowSpecificOrigins";
-builder.Services.AddCors(options =>
-    {
-        options.AddPolicy(myAllowSpecificOrigins, policy =>
-        {
-            policy.AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
-    }
-);
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-}).AddCookie(options =>
-{
-    options.Cookie.HttpOnly = true;
-    options.SlidingExpiration = false;
-    options.AccessDeniedPath = "/Forbidden/";
-});
-builder.Services.AddAuthorization();
-
-builder.Services.AddControllers();
-
-var app = builder.Build();
-
-
-app.UseAuthentication();
-app.MapDefaultControllerRoute();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-=======
 void ConfigBuilder()
->>>>>>> main
 {
     var config = new ConfigurationBuilder()
         .SetBasePath(Directory.GetCurrentDirectory())
@@ -85,6 +46,20 @@ void ConfigServices()
     builder.Services.AddRepositories();
     builder.Services.AddAutoMapperDependencies();
     builder.Services.AddControllers();
+    builder.Services.AddHttpServiceCollection();
+
+    builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    }).AddCookie(options =>
+    {
+        options.Cookie.HttpOnly = true;
+        options.SlidingExpiration = false;
+        options.AccessDeniedPath = "/Forbidden/";
+    });
+    builder.Services.AddAuthorization();
 }
 
 void ConfigCors()
@@ -105,14 +80,15 @@ void RunApp()
 {
     var app = builder.Build();
 
-<<<<<<< HEAD
-app.Run();
-=======
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+
+    app.UseAuthentication();
+
+    app.MapDefaultControllerRoute();
 
     app.UseHttpsRedirection();
 
@@ -126,4 +102,3 @@ app.Run();
 
     app.Run();
 }
->>>>>>> main

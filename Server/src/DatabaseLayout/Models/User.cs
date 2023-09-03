@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-﻿namespace DatabaseLayout.Models;
-
-public class User
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public string Username { get; set; }
-    public string Password { get; set; }
-
-
-=======
 ﻿using System.Collections.Generic;
 
 namespace DatabaseLayout.Models;
@@ -27,5 +14,4 @@ public class User
     public ICollection<Assignment> Tasks { get; set; }
     public ICollection<Note> Notes { get; set; }
     public ICollection<Alarm> Alarms { get; set; }  
->>>>>>> main
 }

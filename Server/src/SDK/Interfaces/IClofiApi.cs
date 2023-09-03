@@ -1,11 +1,8 @@
-<<<<<<< HEAD
-﻿using System.Threading.Tasks;
-=======
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Models;
->>>>>>> main
 using Refit;
+using SDK.Models;
 
 namespace SDK.Interfaces;
 
@@ -17,18 +14,17 @@ public interface IClofiApi
     [Get("/api/User")]
     Task<List<User>> GetUsersAsync();
 
-    [Get("/api/User/{id}")]
-    Task<User> GetUserAsync(int id);
-
     [Delete("/api/User/{id}")]
     Task DeleteUserAsync(int id);
-
-    [Post("/api/User")]
-    Task CreateUserAsync(User user);
 
     [Put("/api/User")]
     Task UpdateUserAsync(User user);
 
+    [Post("/api/User/Login")]
+    Task<UserLoginResponse> LoginUserAsync(UserLoginRequest request);
+
+    [Post("/api/User/Register")]
+    Task<bool> RegisterUserAsync(UserRegisterRequest request);
 
     [Get("/api/Alarm")]
     Task<List<Alarm>> GetAlarmsAsync();

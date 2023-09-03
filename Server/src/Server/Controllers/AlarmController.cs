@@ -1,8 +1,7 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Server.Interfaces;
 using Server.Models;
-using Server.Repository;
+using Services;
 using System.Threading.Tasks;
 
 namespace Server.Controllers;
@@ -17,6 +16,7 @@ public class AlarmController : BaseController
     }
 
     [HttpGet]
+    [JwtAuth]
     public async Task<IActionResult> GetAlarmsAsync()
     {
         var alarms = await _alarmRepository.GetAlarmsAsync();
@@ -24,6 +24,7 @@ public class AlarmController : BaseController
     }
 
     [HttpGet("{id}")]
+    [JwtAuth]
     public async Task<IActionResult> GetAlarmAsync(int id)
     {
         var alarm = await _alarmRepository.GetAlarmAsync(id);
@@ -31,6 +32,7 @@ public class AlarmController : BaseController
     }
 
     [HttpPost]
+    [JwtAuth]
     public async Task<IActionResult> CreateAlarmAsync([FromBody] global::Models.Alarm newAlarmDto)
     {
         var result = await _alarmRepository.CreateAlarmAsync(newAlarmDto);
@@ -38,6 +40,7 @@ public class AlarmController : BaseController
     }
 
     [HttpPut]
+    [JwtAuth]
     public async Task<IActionResult> UpdateAlarmAsync([FromBody] global::Models.Alarm updatedAlarmDto)
     {
         var result = await _alarmRepository.UpdateAlarmAsync(updatedAlarmDto);
@@ -45,6 +48,7 @@ public class AlarmController : BaseController
     }
 
     [HttpDelete("{id}")]
+    [JwtAuth]
     public async Task<IActionResult> DeleteAlarmAsync(int id)
     {
         var result = await _alarmRepository.DeleteAlarmAsync(id);
