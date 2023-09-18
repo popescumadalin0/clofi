@@ -46,8 +46,9 @@ void ConfigServices()
     builder.Services.AddRepositories();
     builder.Services.AddAutoMapperDependencies();
     builder.Services.AddControllers();
-<<<<<<< HEAD
     builder.Services.AddHttpServiceCollection();
+    builder.Services.AddAuthorization();
+    builder.Services.AddLogging();
 
     builder.Services.AddAuthentication(options =>
     {
@@ -60,11 +61,6 @@ void ConfigServices()
         options.SlidingExpiration = false;
         options.AccessDeniedPath = "/Forbidden/";
     });
-    builder.Services.AddAuthorization();
-=======
-
-    builder.Services.AddLogging();
->>>>>>> main
 }
 
 void ConfigCors()

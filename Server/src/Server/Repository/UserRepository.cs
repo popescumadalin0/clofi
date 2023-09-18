@@ -4,12 +4,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DatabaseLayout.Context;
 using Microsoft.EntityFrameworkCore;
-<<<<<<< HEAD
-using SDK.Models;
-=======
 using Microsoft.Extensions.Logging;
 using Models;
->>>>>>> main
+using SDK.Models;
 using Server.Interfaces;
 using Server.Models;
 using Services.Interfaces;
@@ -22,23 +19,16 @@ public class UserRepository : IUserRepository
 {
     private readonly IClofiContext _context;
     private readonly IMapper _mapper;
-<<<<<<< HEAD
     private readonly ITokenService _tokenService;
+    private readonly ILogger<UserRepository> _logger;
 
-    public UserRepository(IClofiContext context, IMapper mapper, ITokenService tokenService)
+    public UserRepository(IClofiContext context, IMapper mapper, ITokenService tokenService,
+        ILogger<UserRepository> logger)
     {
         _context = context;
         _mapper = mapper;
         _tokenService = tokenService;
-=======
-    private readonly ILogger<UserRepository> _logger;
-
-    public UserRepository(IClofiContext context, IMapper mapper, ILogger<UserRepository> logger)
-    {
-        _context = context;
-        _mapper = mapper;
         _logger = logger;
->>>>>>> main
     }
 
     public async Task<ServiceResponse<List<User>>> GetUsersAsync()
@@ -56,21 +46,6 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public async Task<ServiceResponse<User>> GetUserAsync(int id)
-    {
-        try
-        {
-            var user = await _context.Users.FindAsync(id);
-            var result = _mapper.Map<User>(user);
-            return new ServiceResponse<User>(result);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogInformation(ex.Message);
-            return new ServiceResponse<User>(ex);
-        }
-    }
-
     public async Task<ServiceResponse<bool>> CreateUserAsync(User userDto)
     {
         try
@@ -83,12 +58,8 @@ public class UserRepository : IUserRepository
         }
         catch (Exception ex)
         {
-<<<<<<< HEAD
-            return new ServiceResponse<bool>(ex);
-=======
             _logger.LogInformation(ex.Message);
-            return new ServiceResponse(ex);
->>>>>>> main
+            return new ServiceResponse<bool>(ex);
         }
     }
 
@@ -127,7 +98,6 @@ public class UserRepository : IUserRepository
             _logger.LogInformation(ex.Message);
             return new ServiceResponse(ex);
         }
-<<<<<<< HEAD
     }
 
     public async Task<ServiceResponse<UserLoginResponse>> LoginUserAsync(UserLoginRequest request)
@@ -176,8 +146,5 @@ public class UserRepository : IUserRepository
 
         var response = await CreateUserAsync(user);
         return response;
-=======
-
->>>>>>> main
     }
 }

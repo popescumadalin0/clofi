@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Server.Interfaces;
 using Server.Models;
-<<<<<<< HEAD
 using Services;
-=======
->>>>>>> main
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Models;
 
 namespace Server.Controllers;
 
@@ -41,12 +37,8 @@ public class AssignmentController : BaseController
     }
 
     [HttpPost]
-<<<<<<< HEAD
     [JwtAuth]
     public async Task<IActionResult> CreateAssignmentAsync([FromBody] global::Models.Assignment newAssignmentDto)
-=======
-    public async Task<IActionResult> CreateAssignmentAsync([FromBody] Assignment newAssignmentDto)
->>>>>>> main
     {
         _logger.LogInformation("Create assignment");
         var result = await _assignmentRepository.CreateAssignmentAsync(newAssignmentDto);
@@ -54,12 +46,8 @@ public class AssignmentController : BaseController
     }
 
     [HttpPut]
-<<<<<<< HEAD
     [JwtAuth]
     public async Task<IActionResult> UpdateAssignmentAsync([FromBody] global::Models.Assignment updatedAssignmentDto)
-=======
-    public async Task<IActionResult> UpdateAssignmentAsync([FromBody] Assignment updatedAssignmentDto)
->>>>>>> main
     {
         _logger.LogInformation($"Update assignment: {updatedAssignmentDto.Id}");
         var result = await _assignmentRepository.UpdateAssignmentAsync(updatedAssignmentDto);

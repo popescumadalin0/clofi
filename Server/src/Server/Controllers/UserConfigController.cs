@@ -37,15 +37,9 @@ public class UserConfigController : BaseController
         return ApiServiceResponse.ApiServiceResult(config);
     }
 
-<<<<<<< HEAD
-    [HttpPost]
-    [JwtAuth]
-    public async Task<IActionResult> CreateConfigAsync([FromBody] global::Models.UserConfig newConfigDto)
-=======
 
     [HttpGet("/user/{id}")]
     public async Task<IActionResult> GetConfigByUserAsync(int userId)
->>>>>>> main
     {
         _logger.LogInformation($"Get user configuration by id: {userId}");
 
@@ -55,7 +49,8 @@ public class UserConfigController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateConfigAsync([FromBody] UserConfig newConfigDto)
+    [JwtAuth]
+    public async Task<IActionResult> CreateConfigAsync([FromBody] global::Models.UserConfig newConfigDto)
     {
         _logger.LogInformation("Create user configuration");
         var result = await _userConfigRepository.CreateConfigAsync(newConfigDto);
@@ -63,14 +58,10 @@ public class UserConfigController : BaseController
     }
 
     [HttpPut]
-<<<<<<< HEAD
     [JwtAuth]
     public async Task<IActionResult> UpdateConfigAsync([FromBody] global::Models.UserConfig updatedConfigDto)
-=======
-    public async Task<IActionResult> UpdateConfigAsync([FromBody] UserConfig updatedConfigDto)
->>>>>>> main
     {
-        _logger.LogInformation($"Uodate user configuration: {updatedConfigDto.Id}");
+        _logger.LogInformation($"Update user configuration: {updatedConfigDto.Id}");
         var result = await _userConfigRepository.UpdateConfigAsync(updatedConfigDto);
         return ApiServiceResponse.ApiServiceResult(result);
     }

@@ -2,12 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
 using System.Threading.Tasks;
-<<<<<<< HEAD
-using Services;
-=======
 using Microsoft.Extensions.Logging;
-using Models;
->>>>>>> main
+using Services;
 
 namespace Server.Controllers;
 
@@ -41,12 +37,8 @@ public class NoteController : BaseController
     }
 
     [HttpPost]
-<<<<<<< HEAD
     [JwtAuth]
     public async Task<IActionResult> CreateNoteAsync([FromBody] global::Models.Note newNoteDto)
-=======
-    public async Task<IActionResult> CreateNoteAsync([FromBody] Note newNoteDto)
->>>>>>> main
     {
         _logger.LogInformation("Create note");
         var result = await _noteRepository.CreateNoteAsync(newNoteDto);
@@ -54,12 +46,8 @@ public class NoteController : BaseController
     }
 
     [HttpPut]
-<<<<<<< HEAD
     [JwtAuth]
     public async Task<IActionResult> UpdateNoteAsync([FromBody] global::Models.Note updatedNoteDto)
-=======
-    public async Task<IActionResult> UpdateNoteAsync([FromBody] Note updatedNoteDto)
->>>>>>> main
     {
         _logger.LogInformation($"Update note: {updatedNoteDto.Id}");
         var result = await _noteRepository.UpdateNoteAsync(updatedNoteDto);

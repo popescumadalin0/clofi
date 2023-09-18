@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Server.Interfaces;
 using Server.Models;
-<<<<<<< HEAD
 using Services;
-=======
->>>>>>> main
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Models;
 
 namespace Server.Controllers;
 
@@ -41,12 +37,8 @@ public class AlarmController : BaseController
     }
 
     [HttpPost]
-<<<<<<< HEAD
     [JwtAuth]
     public async Task<IActionResult> CreateAlarmAsync([FromBody] global::Models.Alarm newAlarmDto)
-=======
-    public async Task<IActionResult> CreateAlarmAsync([FromBody] Alarm newAlarmDto)
->>>>>>> main
     {
         _logger.LogInformation("Create alarm");
         var result = await _alarmRepository.CreateAlarmAsync(newAlarmDto);
@@ -54,12 +46,8 @@ public class AlarmController : BaseController
     }
 
     [HttpPut]
-<<<<<<< HEAD
     [JwtAuth]
     public async Task<IActionResult> UpdateAlarmAsync([FromBody] global::Models.Alarm updatedAlarmDto)
-=======
-    public async Task<IActionResult> UpdateAlarmAsync([FromBody] Alarm updatedAlarmDto)
->>>>>>> main
     {
         _logger.LogInformation($"Update alarm: {updatedAlarmDto.Id}");
         var result = await _alarmRepository.UpdateAlarmAsync(updatedAlarmDto);

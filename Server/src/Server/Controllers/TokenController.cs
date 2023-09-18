@@ -10,14 +10,12 @@ namespace Server.Controllers
     public class TokenController : BaseController
     {
         private readonly ITokenService _tokenService;
-        private readonly IUserRepository _userRepository;
         private readonly ICookieService _cookieService;
 
         public TokenController(ITokenService tokenService, IUserRepository userRepository,
             ICookieService cookieService)
         {
             _tokenService = tokenService;
-            _userRepository = userRepository;
             _cookieService = cookieService;
         }
 

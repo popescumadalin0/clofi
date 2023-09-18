@@ -1,11 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Models;
-<<<<<<< HEAD
-using Refit;
 using SDK.Models;
-=======
->>>>>>> main
 using SDK.RefitModels;
 
 namespace SDK.Interfaces;

@@ -9,7 +9,6 @@ namespace Server.Interfaces;
 public interface IUserRepository
 {
     Task<ServiceResponse<List<User>>> GetUsersAsync();
-    Task<ServiceResponse<User>> GetUserAsync(int id);
     Task<ServiceResponse<bool>> CreateUserAsync(User user);
     Task<ServiceResponse> UpdateUserAsync(User userDto);
     Task<ServiceResponse> DeleteUserAsync(int id);
