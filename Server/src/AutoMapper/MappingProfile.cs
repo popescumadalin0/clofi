@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DatabaseLayout.Models;
 using Alarm = Models.Alarm;
 using Assignment = Models.Assignment;
 using Note = Models.Note;

@@ -6,6 +6,7 @@ using Server.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
+using Microsoft.Extensions.Logging;
 using Models;
 
 namespace Server.Repository;
@@ -14,11 +15,13 @@ public class AlarmRepository : IAlarmRepository
 {
     private readonly IClofiContext _context;
     private readonly IMapper _mapper;
+    private readonly ILogger<AlarmRepository> _logger;
 
-    public AlarmRepository(IClofiContext context, IMapper mapper)
+    public AlarmRepository(IClofiContext context, IMapper mapper, ILogger<AlarmRepository> logger)
     {
         _context = context;
         _mapper = mapper;
+        _logger = logger;
     }
 
     public async Task<ServiceResponse<List<Alarm>>> GetAlarmsAsync()
@@ -31,6 +34,7 @@ public class AlarmRepository : IAlarmRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse<List<Alarm>>(ex);
         }
     }
@@ -45,6 +49,7 @@ public class AlarmRepository : IAlarmRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse<Alarm>(ex);
         }
     }
@@ -60,6 +65,7 @@ public class AlarmRepository : IAlarmRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse(ex);
         }
     }
@@ -75,6 +81,7 @@ public class AlarmRepository : IAlarmRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse(ex);
         }
     }
@@ -94,6 +101,7 @@ public class AlarmRepository : IAlarmRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse(ex);
         }
 

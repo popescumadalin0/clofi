@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 using Models;
+using Microsoft.Extensions.Logging;
 
 namespace Server.Repository;
 
@@ -14,11 +15,13 @@ public class AssignmentRepository : IAssignmentRepository
 {
     private readonly IClofiContext _context;
     private readonly IMapper _mapper;
+    private readonly ILogger<AssignmentRepository> _logger;
 
-    public AssignmentRepository(IClofiContext context, IMapper mapper)
+    public AssignmentRepository(IClofiContext context, IMapper mapper, ILogger<AssignmentRepository> logger)
     {
         _context = context;
         _mapper = mapper;
+        _logger = logger;
     }
 
     public async Task<ServiceResponse<List<Assignment>>> GetAssignmentsAsync()
@@ -31,6 +34,7 @@ public class AssignmentRepository : IAssignmentRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse<List<Assignment>>(ex);
         }
     }
@@ -45,6 +49,7 @@ public class AssignmentRepository : IAssignmentRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse<Assignment>(ex);
         }
     }
@@ -60,6 +65,7 @@ public class AssignmentRepository : IAssignmentRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse(ex);
         }
     }
@@ -75,6 +81,7 @@ public class AssignmentRepository : IAssignmentRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse(ex);
         }
     }
@@ -94,6 +101,7 @@ public class AssignmentRepository : IAssignmentRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse(ex);
         }
 

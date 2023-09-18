@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 using Models;
+using Microsoft.Extensions.Logging;
 
 namespace Server.Repository;
 
@@ -14,11 +15,13 @@ public class NoteRepository : INoteRepository
 {
     private readonly IClofiContext _context;
     private readonly IMapper _mapper;
+    private readonly ILogger<NoteRepository> _logger;
 
-    public NoteRepository(IClofiContext context, IMapper mapper)
+    public NoteRepository(IClofiContext context, IMapper mapper, ILogger<NoteRepository> logger)
     {
         _context = context;
         _mapper = mapper;
+        _logger = logger;
     }
 
     public async Task<ServiceResponse<List<Note>>> GetNotesAsync()
@@ -31,6 +34,7 @@ public class NoteRepository : INoteRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse<List<Note>>(ex);
         }
     }
@@ -45,6 +49,7 @@ public class NoteRepository : INoteRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse<Note>(ex);
         }
     }
@@ -60,6 +65,7 @@ public class NoteRepository : INoteRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse(ex);
         }
     }
@@ -75,6 +81,7 @@ public class NoteRepository : INoteRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse(ex);
         }
     }
@@ -94,6 +101,7 @@ public class NoteRepository : INoteRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse(ex);
         }
 
