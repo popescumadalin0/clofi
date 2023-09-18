@@ -21,6 +21,7 @@ public static class DependencyInjection
         services.AddScoped<IAssignmentRepository, AssignmentRepository>();
         services.AddScoped<IAlarmRepository, AlarmRepository>();
         services.AddScoped<IUserConfigRepository, UserConfigRepository>();
+<<<<<<< HEAD
         services.AddHttpContextAccessor();
         return services;
     }
@@ -28,6 +29,9 @@ public static class DependencyInjection
     public static IServiceCollection AddHttpServiceCollection(this IServiceCollection services)
     {
         services.AddHttpContextAccessor();
+=======
+
+>>>>>>> main
         return services;
     }
 }

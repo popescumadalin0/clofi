@@ -4,7 +4,12 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DatabaseLayout.Context;
 using Microsoft.EntityFrameworkCore;
+<<<<<<< HEAD
 using SDK.Models;
+=======
+using Microsoft.Extensions.Logging;
+using Models;
+>>>>>>> main
 using Server.Interfaces;
 using Server.Models;
 using Services.Interfaces;
@@ -17,6 +22,7 @@ public class UserRepository : IUserRepository
 {
     private readonly IClofiContext _context;
     private readonly IMapper _mapper;
+<<<<<<< HEAD
     private readonly ITokenService _tokenService;
 
     public UserRepository(IClofiContext context, IMapper mapper, ITokenService tokenService)
@@ -24,6 +30,15 @@ public class UserRepository : IUserRepository
         _context = context;
         _mapper = mapper;
         _tokenService = tokenService;
+=======
+    private readonly ILogger<UserRepository> _logger;
+
+    public UserRepository(IClofiContext context, IMapper mapper, ILogger<UserRepository> logger)
+    {
+        _context = context;
+        _mapper = mapper;
+        _logger = logger;
+>>>>>>> main
     }
 
     public async Task<ServiceResponse<List<User>>> GetUsersAsync()
@@ -36,6 +51,7 @@ public class UserRepository : IUserRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse<List<User>>(ex);
         }
     }
@@ -50,6 +66,7 @@ public class UserRepository : IUserRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse<User>(ex);
         }
     }
@@ -66,7 +83,12 @@ public class UserRepository : IUserRepository
         }
         catch (Exception ex)
         {
+<<<<<<< HEAD
             return new ServiceResponse<bool>(ex);
+=======
+            _logger.LogInformation(ex.Message);
+            return new ServiceResponse(ex);
+>>>>>>> main
         }
     }
 
@@ -81,6 +103,7 @@ public class UserRepository : IUserRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse(ex);
         }
     }
@@ -101,8 +124,10 @@ public class UserRepository : IUserRepository
         }
         catch (Exception ex)
         {
+            _logger.LogInformation(ex.Message);
             return new ServiceResponse(ex);
         }
+<<<<<<< HEAD
     }
 
     public async Task<ServiceResponse<UserLoginResponse>> LoginUserAsync(UserLoginRequest request)
@@ -151,5 +176,8 @@ public class UserRepository : IUserRepository
 
         var response = await CreateUserAsync(user);
         return response;
+=======
+
+>>>>>>> main
     }
 }
