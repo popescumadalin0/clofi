@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Models;
+using SDK.Models;
 using SDK.RefitModels;
 
 namespace SDK.Interfaces;
@@ -17,22 +18,10 @@ public interface IClofiApiClient
     Task<ApiResponseMessage<List<User>>> GetUsersAsync();
 
     /// <summary>
-    /// Get user by id.
-    /// </summary>
-    /// <returns></returns>
-    Task<ApiResponseMessage<User>> GetUserAsync(int id);
-
-    /// <summary>
     /// Delete user.
     /// </summary>
     /// <returns></returns>
     Task<ApiResponseMessage> DeleteUserAsync(int id);
-
-    /// <summary>
-    /// Create user.
-    /// </summary>
-    /// <returns></returns>
-    Task<ApiResponseMessage> CreateUserAsync(User user);
 
     /// <summary>
     /// Update user.
@@ -40,6 +29,19 @@ public interface IClofiApiClient
     /// <returns></returns>
     Task<ApiResponseMessage> UpdateUserAsync(User user);
 
+    /// <summary>
+    /// Login user.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    Task<ApiResponseMessage<UserLoginResponse>> LoginUserAsync(UserLoginRequest request);
+
+    /// <summary>
+    /// Register user.
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    Task<ApiResponseMessage<bool>> RegisterUserAsync(UserRegisterRequest request);
 
     /// <summary>
     /// Get all alarms.

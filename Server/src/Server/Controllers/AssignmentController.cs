@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Server.Interfaces;
 using Server.Models;
+using Services;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Models;
 
 namespace Server.Controllers;
 
@@ -19,6 +19,7 @@ public class AssignmentController : BaseController
     }
 
     [HttpGet]
+    [JwtAuth]
     public async Task<IActionResult> GetAssignmentsAsync()
     {
         _logger.LogInformation("Get all assignments");
@@ -27,6 +28,7 @@ public class AssignmentController : BaseController
     }
 
     [HttpGet("{id}")]
+    [JwtAuth]
     public async Task<IActionResult> GetAssignmentAsync(int id)
     {
         _logger.LogInformation($"Get assignment by id: {id}");
@@ -35,7 +37,8 @@ public class AssignmentController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAssignmentAsync([FromBody] Assignment newAssignmentDto)
+    [JwtAuth]
+    public async Task<IActionResult> CreateAssignmentAsync([FromBody] global::Models.Assignment newAssignmentDto)
     {
         _logger.LogInformation("Create assignment");
         var result = await _assignmentRepository.CreateAssignmentAsync(newAssignmentDto);
@@ -43,7 +46,8 @@ public class AssignmentController : BaseController
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateAssignmentAsync([FromBody] Assignment updatedAssignmentDto)
+    [JwtAuth]
+    public async Task<IActionResult> UpdateAssignmentAsync([FromBody] global::Models.Assignment updatedAssignmentDto)
     {
         _logger.LogInformation($"Update assignment: {updatedAssignmentDto.Id}");
         var result = await _assignmentRepository.UpdateAssignmentAsync(updatedAssignmentDto);
@@ -51,6 +55,7 @@ public class AssignmentController : BaseController
     }
 
     [HttpDelete("{id}")]
+    [JwtAuth]
     public async Task<IActionResult> DeleteAssignmentAsync(int id)
     {
         _logger.LogInformation($"Delete assignment: {id}");

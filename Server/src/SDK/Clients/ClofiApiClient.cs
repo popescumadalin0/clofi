@@ -1,9 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
-using SDK.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using SDK.Interfaces;
+using System.Collections.Generic;
 using Models;
+using SDK.Models;
 using SDK.RefitModels;
 
 namespace SDK.Clients;
@@ -38,21 +39,6 @@ public class ClofiApiClient : RefitApiClient<IClofiApi>, IClofiApiClient
         }
     }
 
-    public async Task<ApiResponseMessage<User>> GetUserAsync(int id)
-    {
-        try
-        {
-            var task = _apiClient.GetUserAsync(id);
-            var result = await Execute(task);
-            return result;
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Error executing {nameof(GetUserAsync)}");
-            throw;
-        }
-    }
-
     public async Task<ApiResponseMessage> DeleteUserAsync(int id)
     {
         try
@@ -68,17 +54,32 @@ public class ClofiApiClient : RefitApiClient<IClofiApi>, IClofiApiClient
         }
     }
 
-    public async Task<ApiResponseMessage> CreateUserAsync(User user)
+    public async Task<ApiResponseMessage<bool>> RegisterUserAsync(UserRegisterRequest request)
     {
         try
         {
-            var task = _apiClient.CreateUserAsync(user);
+            var task = _apiClient.RegisterUserAsync(request);
             var result = await Execute(task);
             return result;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, $"Error executing {nameof(CreateUserAsync)}");
+            _logger.LogError(e, $"Error executing {nameof(RegisterUserAsync)}");
+            throw;
+        }
+    }
+
+    public async Task<ApiResponseMessage<UserLoginResponse>> LoginUserAsync(UserLoginRequest request)
+    {
+        try
+        {
+            var task = _apiClient.LoginUserAsync(request);
+            var result = await Execute(task);
+            return result;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Error executing {nameof(LoginUserAsync)}");
             throw;
         }
     }
@@ -394,66 +395,6 @@ public class ClofiApiClient : RefitApiClient<IClofiApi>, IClofiApiClient
         catch (Exception e)
         {
             _logger.LogError(e, $"Error executing {nameof(DeleteConfigAsync)}");
-            throw;
-        }
-    }
-
-    public async Task<ApiResponseMessage<User>> GetUser(int id)
-    {
-        try
-        {
-            var task = _apiClient.GetUserAsync(id);
-            var result = await Execute(task);
-            return result;
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Error executing {nameof(GetUser)}");
-            throw;
-        }
-    }
-
-    public async Task<ApiResponseMessage> DeleteUser(int id)
-    {
-        try
-        {
-            var task = _apiClient.DeleteUserAsync(id);
-            var result = await Execute(task);
-            return result;
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Error executing {nameof(DeleteUser)}");
-            throw;
-        }
-    }
-
-    public async Task<ApiResponseMessage> CreateUser(User user)
-    {
-        try
-        {
-            var task = _apiClient.CreateUserAsync(user);
-            var result = await Execute(task);
-            return result;
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Error executing {nameof(CreateUser)}");
-            throw;
-        }
-    }
-
-    public async Task<ApiResponseMessage> UpdateUser(User user)
-    {
-        try
-        {
-            var task = _apiClient.UpdateUserAsync(user);
-            var result = await Execute(task);
-            return result;
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, $"Error executing {nameof(UpdateUser)}");
             throw;
         }
     }

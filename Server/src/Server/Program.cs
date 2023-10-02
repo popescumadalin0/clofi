@@ -1,6 +1,7 @@
 using System.IO;
 using AutoMapperProj;
 using DatabaseLayout.Context;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Server;
 using Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 const string myAllowSpecificOrigins = "_AllowSpecificOrigins";
@@ -44,8 +46,21 @@ void ConfigServices()
     builder.Services.AddRepositories();
     builder.Services.AddAutoMapperDependencies();
     builder.Services.AddControllers();
-
+    builder.Services.AddHttpServiceCollection();
+    builder.Services.AddAuthorization();
     builder.Services.AddLogging();
+
+    builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    }).AddCookie(options =>
+    {
+        options.Cookie.HttpOnly = true;
+        options.SlidingExpiration = false;
+        options.AccessDeniedPath = "/Forbidden/";
+    });
 }
 
 void ConfigCors()
@@ -71,6 +86,10 @@ void RunApp()
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+
+    app.UseAuthentication();
+
+    app.MapDefaultControllerRoute();
 
     app.UseHttpsRedirection();
 

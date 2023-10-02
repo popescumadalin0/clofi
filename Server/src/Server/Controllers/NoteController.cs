@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Server.Models;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Models;
+using Services;
 
 namespace Server.Controllers;
 
@@ -19,6 +19,7 @@ public class NoteController : BaseController
     }
 
     [HttpGet]
+    [JwtAuth]
     public async Task<IActionResult> GetNotesAsync()
     {
         _logger.LogInformation("Get all notes");
@@ -27,6 +28,7 @@ public class NoteController : BaseController
     }
 
     [HttpGet("{id}")]
+    [JwtAuth]
     public async Task<IActionResult> GetNoteAsync(int id)
     {
         _logger.LogInformation($"Get note by id: {id}");
@@ -35,7 +37,8 @@ public class NoteController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateNoteAsync([FromBody] Note newNoteDto)
+    [JwtAuth]
+    public async Task<IActionResult> CreateNoteAsync([FromBody] global::Models.Note newNoteDto)
     {
         _logger.LogInformation("Create note");
         var result = await _noteRepository.CreateNoteAsync(newNoteDto);
@@ -43,7 +46,8 @@ public class NoteController : BaseController
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateNoteAsync([FromBody] Note updatedNoteDto)
+    [JwtAuth]
+    public async Task<IActionResult> UpdateNoteAsync([FromBody] global::Models.Note updatedNoteDto)
     {
         _logger.LogInformation($"Update note: {updatedNoteDto.Id}");
         var result = await _noteRepository.UpdateNoteAsync(updatedNoteDto);
@@ -51,6 +55,7 @@ public class NoteController : BaseController
     }
 
     [HttpDelete("{id}")]
+    [JwtAuth]
     public async Task<IActionResult> DeleteNoteAsync(int id)
     {
         _logger.LogInformation($"Delete note: {id}");

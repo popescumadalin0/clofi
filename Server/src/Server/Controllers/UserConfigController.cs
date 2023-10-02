@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Server.Interfaces;
 using Server.Models;
+using Services;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Models;
@@ -19,6 +20,7 @@ public class UserConfigController : BaseController
     }
 
     [HttpGet]
+    [JwtAuth]
     public async Task<IActionResult> GetConfigsAsync()
     {
         _logger.LogInformation("Get all user configurations");
@@ -27,6 +29,7 @@ public class UserConfigController : BaseController
     }
 
     [HttpGet("{id}")]
+    [JwtAuth]
     public async Task<IActionResult> GetConfigAsync(int id)
     {
         _logger.LogInformation($"Get user configuration by id: {id}");
@@ -46,7 +49,8 @@ public class UserConfigController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateConfigAsync([FromBody] UserConfig newConfigDto)
+    [JwtAuth]
+    public async Task<IActionResult> CreateConfigAsync([FromBody] global::Models.UserConfig newConfigDto)
     {
         _logger.LogInformation("Create user configuration");
         var result = await _userConfigRepository.CreateConfigAsync(newConfigDto);
@@ -54,14 +58,16 @@ public class UserConfigController : BaseController
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateConfigAsync([FromBody] UserConfig updatedConfigDto)
+    [JwtAuth]
+    public async Task<IActionResult> UpdateConfigAsync([FromBody] global::Models.UserConfig updatedConfigDto)
     {
-        _logger.LogInformation($"Uodate user configuration: {updatedConfigDto.Id}");
+        _logger.LogInformation($"Update user configuration: {updatedConfigDto.Id}");
         var result = await _userConfigRepository.UpdateConfigAsync(updatedConfigDto);
         return ApiServiceResponse.ApiServiceResult(result);
     }
 
     [HttpDelete("{id}")]
+    [JwtAuth]
     public async Task<IActionResult> DeleteConfigAsync(int id)
     {
         _logger.LogInformation($"Delete user configuration: {id}");

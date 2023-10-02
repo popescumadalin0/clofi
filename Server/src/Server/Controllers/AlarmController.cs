@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Server.Interfaces;
 using Server.Models;
+using Services;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Models;
 
 namespace Server.Controllers;
 
@@ -19,6 +19,7 @@ public class AlarmController : BaseController
     }
 
     [HttpGet]
+    [JwtAuth]
     public async Task<IActionResult> GetAlarmsAsync()
     {
         _logger.LogInformation("Get all alarms");
@@ -27,6 +28,7 @@ public class AlarmController : BaseController
     }
 
     [HttpGet("{id}")]
+    [JwtAuth]
     public async Task<IActionResult> GetAlarmAsync(int id)
     {
         _logger.LogInformation($"Get alarm by id: {id}");
@@ -35,7 +37,8 @@ public class AlarmController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAlarmAsync([FromBody] Alarm newAlarmDto)
+    [JwtAuth]
+    public async Task<IActionResult> CreateAlarmAsync([FromBody] global::Models.Alarm newAlarmDto)
     {
         _logger.LogInformation("Create alarm");
         var result = await _alarmRepository.CreateAlarmAsync(newAlarmDto);
@@ -43,7 +46,8 @@ public class AlarmController : BaseController
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateAlarmAsync([FromBody] Alarm updatedAlarmDto)
+    [JwtAuth]
+    public async Task<IActionResult> UpdateAlarmAsync([FromBody] global::Models.Alarm updatedAlarmDto)
     {
         _logger.LogInformation($"Update alarm: {updatedAlarmDto.Id}");
         var result = await _alarmRepository.UpdateAlarmAsync(updatedAlarmDto);
@@ -51,6 +55,7 @@ public class AlarmController : BaseController
     }
 
     [HttpDelete("{id}")]
+    [JwtAuth]
     public async Task<IActionResult> DeleteAlarmAsync(int id)
     {
         _logger.LogInformation($"Delete alarm: {id}");

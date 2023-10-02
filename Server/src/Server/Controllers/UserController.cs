@@ -1,24 +1,35 @@
 ﻿using System.Threading.Tasks;
+using AutoMapper;
+using DatabaseLayout.Context;
 using Microsoft.AspNetCore.Mvc;
+using SDK.Models;
 using Microsoft.Extensions.Logging;
-using Models;
 using Server.Interfaces;
 using Server.Models;
+using Services;
+using Services.Interfaces;
+using User = Models.User;
 
 namespace Server.Controllers;
 
 public class UserController : BaseController
 {
     private readonly IUserRepository _userRepository;
-    private readonly ILogger<UserController> _logger;
+    private readonly ICookieService _cookieService;
+    private readonly ITokenService _tokenService;
+    private readonly ILogger<UserConfigController> _logger;
 
-    public UserController(IUserRepository userRepository, ILogger<UserController> logger)
+    public UserController(IClofiContext context, IMapper mapper, IUserRepository userRepository,
+        ICookieService cookieService, ITokenService tokenService, ILogger<UserConfigController> logger)
     {
         _userRepository = userRepository;
+        _cookieService = cookieService;
+        _tokenService = tokenService;
         _logger = logger;
     }
 
     [HttpGet]
+    [JwtAuth]
     public async Task<IActionResult> GetUsersAsync()
     {
         _logger.LogInformation("Get all users");
@@ -26,23 +37,8 @@ public class UserController : BaseController
         return ApiServiceResponse.ApiServiceResult(users);
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetUserAsync(int id)
-    {
-        _logger.LogInformation($"Get user by id: {id}");
-        var user = await _userRepository.GetUserAsync(id);
-        return ApiServiceResponse.ApiServiceResult(user);
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> CreateUserAsync([FromBody] User newUserDto)
-    {
-        _logger.LogInformation("Create user");
-        var result = await _userRepository.CreateUserAsync(newUserDto);
-        return ApiServiceResponse.ApiServiceResult(result);
-    }
-
     [HttpPut]
+    [JwtAuth]
     public async Task<IActionResult> UpdateUserAsync([FromBody] User updatedUserDto)
     {
         _logger.LogInformation($"Update user: {updatedUserDto.Id}");
@@ -51,10 +47,35 @@ public class UserController : BaseController
     }
 
     [HttpDelete("{id}")]
+    [JwtAuth]
     public async Task<IActionResult> DeleteUserAsync(int id)
     {
         _logger.LogInformation($"Delete user: {id}");
         var result = await _userRepository.DeleteUserAsync(id);
         return ApiServiceResponse.ApiServiceResult(result);
+    }
+
+    [HttpPost("Register")]
+    public async Task<IActionResult> Register(UserRegisterRequest request)
+    {
+        var response = await _userRepository.RegisterUserAsync(request);
+        return ApiServiceResponse.ApiServiceResult(response);
+    }
+
+
+    [HttpPost("Login")]
+    public async Task<IActionResult> Login(UserLoginRequest request)
+    {
+        var responseLogin = await _userRepository.LoginUserAsync(request);
+        if (responseLogin.Success.Equals(false))
+            return ApiServiceResponse.ApiServiceResult(responseLogin);
+        var token = responseLogin.Response.Token;
+        var refreshToken = responseLogin.Response.RefreshToken;
+
+        _cookieService.SetCookie("token", token, _tokenService.GetExpirationTimeFromJwtInMinutes(token));
+        _cookieService.SetCookie("refreshToken", refreshToken,
+            _tokenService.GetExpirationTimeFromJwtInMinutes(refreshToken));
+
+        return ApiServiceResponse.ApiServiceResult(responseLogin);
     }
 }
